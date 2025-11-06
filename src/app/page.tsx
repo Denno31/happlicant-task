@@ -9,12 +9,14 @@ import { EmptyState } from "@/components/companies/empty-state";
 import CompanyGrid from "@/components/companies/company-grid";
 import CompanyTable from "@/components/companies/company-table";
 import CompanyDialogForm from "@/components/companies/company-dialog-form";
+import { CompanyDialogDelete } from "@/components/companies/company-dialog-delete";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [deletedId, setDeletedId] = useState<string | null>(null);
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
@@ -44,10 +46,19 @@ export default function HomePage() {
     setIsDialogOpen(false);
   };
 
+  const handleDelete = () => {
+    if (deletedId) {
+      setCompanies((prev) =>
+        prev.filter((company) => company.id !== deletedId),
+      );
+      setDeletedId(null);
+    }
+  };
+
   useEffect(() => {
     if (!isLoading)
       localStorage.setItem("companies", JSON.stringify(companies));
-  }, [companies]);
+  }, [companies, isLoading]);
 
   if (isLoading) {
     return <div>loading..</div>;
@@ -73,13 +84,13 @@ export default function HomePage() {
             {viewMode === "grid" ? (
               <CompanyGrid
                 companies={companies}
-                onDelete={() => {}}
+                onDelete={(id) => setDeletedId(id)}
                 onEdit={() => {}}
               />
             ) : (
               <CompanyTable
                 companies={companies}
-                onDelete={() => {}}
+                onDelete={(id) => setDeletedId(id)}
                 onEdit={() => {}}
               />
             )}
@@ -90,6 +101,12 @@ export default function HomePage() {
         open={isDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
         onSubmit={handleSubmit}
+      />
+      <CompanyDialogDelete
+        open={!!deletedId}
+        onOpenChange={() => setDeletedId(null)}
+        onConfirm={handleDelete}
+        companyName=""
       />
     </main>
   );
