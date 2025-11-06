@@ -1,5 +1,12 @@
 "use client";
-import { ArrowUpDown, LayoutGrid, List, Plus, Search } from "lucide-react";
+import {
+  ArrowUpDown,
+  LayoutGrid,
+  List,
+  Plus,
+  Search,
+  Sparkles,
+} from "lucide-react";
 import Logo from "../common/logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -35,9 +42,7 @@ export default function Header({
   sortBy,
   isHomePage,
 }: HeaderProps) {
-  //lets use url search params to set search query
   const searchParams = useSearchParams();
-
   return (
     <div className="sticky top-0 z-30 mb-6 border-b border-gray-200 bg-white shadow-md">
       <div className="border-b border-gray-200">
@@ -74,9 +79,11 @@ export default function Header({
               {isHomePage && (
                 <Button
                   onClick={onAdd}
-                  className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-pink-700 hover:shadow-md"
+                  className="group h-10 gap-2.5 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-pink-500/30 transition-all hover:scale-105 hover:shadow-xl hover:shadow-pink-500/40"
                 >
-                  <Plus className="h-4 w-4" />
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 transition-colors group-hover:bg-white/30">
+                    <Plus className="h-3.5 w-3.5" />
+                  </div>
                   Add Company
                 </Button>
               )}
