@@ -20,7 +20,7 @@ import { use, useEffect, useState } from "react";
 import type { Company } from "@/types/company";
 import IndustryTag from "@/components/companies/industry-tag";
 import { CompanyDetailsLoading } from "@/components/companies/company-details-loading";
-import { formatLocation, formatCEO } from "@/lib/format-company";
+import { formatLocation, getFormattedCEOText } from "@/lib/format-company";
 
 interface CompanyDetailsPageProps {
   params: Promise<{
@@ -106,7 +106,7 @@ export default function companyDetailsPage({
     );
   }
 
-  const ceoInfo = formatCEO(company.ceo);
+  const ceoInfo = getFormattedCEOText(company.ceo);
 
   return (
     <MainLayout
