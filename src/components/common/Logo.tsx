@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Building2 } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 interface LogoProps {
     className?: string;
@@ -36,7 +36,7 @@ export default function Logo({
     return (
         <div className={`flex items-center gap-3 ${className}`}>
             <div className={`${sizeClass.container} flex items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 shadow-lg shadow-pink-500/30`}>
-                <Building2 className={`${sizeClass.icon} text-white`} />
+                <Sparkles className={`${sizeClass.icon} text-white`} />
             </div>
             {showText && (
                 <div className="flex flex-col">
