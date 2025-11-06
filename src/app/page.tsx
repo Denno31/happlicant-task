@@ -1,7 +1,6 @@
 "use client";
 import { useMemo, useState } from "react";
 import { useEffect } from "react";
-import Header from "@/components/layout/header";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";
 import dummyData from "@/../dummyData.json";

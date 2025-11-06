@@ -20,6 +20,7 @@ interface HeaderProps {
   onSortChange: (sort: string) => void;
   searchQuery: string;
   sortBy: string;
+  isHomePage?: boolean;
 }
 
 const sortOptions = [
@@ -39,6 +40,7 @@ export default function Header({
   onSortChange,
   searchQuery,
   sortBy,
+  isHomePage,
 }: HeaderProps) {
   //lets use url search params to set search query
   const searchParams = useSearchParams();
@@ -52,28 +54,30 @@ export default function Header({
               <Logo size="md" />
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex rounded-lg border border-gray-200 bg-white p-1">
-                <button
-                  onClick={() => onViewChange("grid")}
-                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                    viewMode === "grid"
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <LayoutGrid className="h-4 w-4" />
-                </button>
-                <button
-                  onClick={() => onViewChange("table")}
-                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
-                    viewMode === "table"
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-600 hover:text-gray-900"
-                  }`}
-                >
-                  <List className="h-4 w-4" />
-                </button>
-              </div>
+              {isHomePage && (
+                <div className="flex rounded-lg border border-gray-200 bg-white p-1">
+                  <button
+                    onClick={() => onViewChange("grid")}
+                    className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                      viewMode === "grid"
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    <LayoutGrid className="h-4 w-4" />
+                  </button>
+                  <button
+                    onClick={() => onViewChange("table")}
+                    className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                      viewMode === "table"
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-600 hover:text-gray-900"
+                    }`}
+                  >
+                    <List className="h-4 w-4" />
+                  </button>
+                </div>
+              )}
               <Button
                 onClick={onAdd}
                 className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-pink-700 hover:shadow-md"
