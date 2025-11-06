@@ -5,18 +5,12 @@ import IndustryTag from "./industry-tag";
 import { useState } from "react";
 import CompanyCardActionMenu from "./companies-card-action-menu";
 import Link from "next/link";
+import { formatLocation } from "@/lib/format-company";
 
 interface CompanyCardProps {
   company: Company;
   onEdit: (company: Company) => void;
   onDelete: (id: string) => void;
-}
-
-function formatLocation(location: Company["location"]): string {
-  if (!location) return "Location not specified";
-  if (typeof location === "string") return location;
-  const parts = [location.city, location.country].filter(Boolean);
-  return parts.length > 0 ? parts.join(", ") : "Location not specified";
 }
 
 export default function CompanyCard({

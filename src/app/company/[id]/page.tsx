@@ -20,31 +20,12 @@ import { use, useEffect, useState } from "react";
 import type { Company } from "@/types/company";
 import IndustryTag from "@/components/companies/industry-tag";
 import { CompanyDetailsLoading } from "@/components/companies/company-details-loading";
+import { formatLocation, formatCEO } from "@/lib/format-company";
 
 interface CompanyDetailsPageProps {
   params: Promise<{
     id: string;
   }>;
-}
-
-function formatLocation(location: Company["location"]): string {
-  if (!location) return "Location not specified";
-  if (typeof location === "string") return location;
-  const parts = [
-    location.address,
-    location.city,
-    location.zip_code,
-    location.country,
-  ].filter(Boolean);
-  return parts.length > 0 ? parts.join(", ") : "Location not specified";
-}
-
-function formatCEO(
-  ceo: Company["ceo"],
-): { name: string; since?: number; bio?: string } | null {
-  if (!ceo) return null;
-  if (typeof ceo === "string") return { name: ceo };
-  return ceo;
 }
 
 export default function companyDetailsPage({
@@ -220,7 +201,10 @@ export default function companyDetailsPage({
                         Location
                       </p>
                       <p className="mt-0.5 text-sm text-gray-900">
-                        {formatLocation(company.location)}
+                        {formatLocation(company.location, {
+                          includeAddress: true,
+                          includeZipCode: true,
+                        })}
                       </p>
                     </div>
                   </div>

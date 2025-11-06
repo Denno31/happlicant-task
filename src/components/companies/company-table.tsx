@@ -2,6 +2,7 @@
 
 import { type Company } from "@/types/company";
 import Link from "next/link";
+import { formatLocation } from "@/lib/format-company";
 
 import {
   Table,
@@ -18,13 +19,6 @@ interface CompanyTableProps {
   companies: Company[];
   onDelete: (id: string) => void;
   onEdit: (company: Company) => void;
-}
-
-function formatLocation(location: Company["location"]): string {
-  if (!location) return "—";
-  if (typeof location === "string") return location;
-  const parts = [location.city, location.country].filter(Boolean);
-  return parts.length > 0 ? parts.join(", ") : "—";
 }
 
 export default function CompanyTable({
@@ -103,7 +97,7 @@ export default function CompanyTable({
                 <IndustryTag industry={company.industry} />
               </TableCell>
               <TableCell className="px-6 py-4 text-sm text-gray-700">
-                {formatLocation(company.location)}
+                {formatLocation(company.location, { fallback: "—" })}
               </TableCell>
               <TableCell className="px-6 py-4 text-sm font-medium text-gray-900">
                 {company.employee_count

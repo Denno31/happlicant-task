@@ -1,13 +1,8 @@
 import type { Company } from "@/types/company";
+import { formatIndustry } from "@/lib/format-company";
 
 interface IndustryTagProps {
   industry: Company["industry"];
-}
-
-function formatIndustry(industry: Company["industry"]): string {
-  if (!industry) return "Not specified";
-  if (typeof industry === "string") return industry;
-  return industry.primary;
 }
 
 export default function IndustryTag({ industry }: IndustryTagProps) {
