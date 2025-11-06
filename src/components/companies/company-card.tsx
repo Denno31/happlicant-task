@@ -3,6 +3,7 @@ import {
   Calendar,
   ExternalLink,
   MapPin,
+  MoreVertical,
   Pencil,
   Trash2,
   Users,
@@ -10,6 +11,14 @@ import {
 import { Card, CardContent } from "../ui/card";
 import type { Company } from "@/types/company";
 import IndustryTag from "./industry-tag";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+} from "../ui/dropdown-menu";
+import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import { useState } from "react";
 
 interface CompanyCardProps {
   company: Company;
@@ -29,8 +38,12 @@ export default function CompanyCard({
   onEdit,
   onDelete,
 }: CompanyCardProps) {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   return (
-    <Card className="group relative overflow-hidden border-gray-200 py-0 transition-all hover:border-pink-200 hover:shadow-md">
+    <Card
+      onMouseLeave={() => setDropdownOpen(false)}
+      className="group relative overflow-hidden border-gray-200 py-0 transition-all hover:border-pink-200 hover:shadow-md"
+    >
       <CardContent className="p-5">
         <div className="relative mb-4 flex items-start justify-between gap-4">
           <div className="flex min-w-0 flex-1 items-start gap-3">
@@ -61,32 +74,54 @@ export default function CompanyCard({
               )}
             </div>
           </div>
-          <div className="flex items-center gap-2 opacity-0 transition-opacity group-hover:opacity-100">
-            {company.website && (
-              <a
-                href={company.website}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-lg p-2 transition-colors hover:bg-gray-100"
-                title="Visit website"
+
+          <div className="opacity-0 transition-opacity group-hover:opacity-100">
+            <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+              <DropdownMenuTrigger asChild>
+                <button
+                  className="rounded-lg p-2 transition-colors hover:bg-gray-100"
+                  title="More options"
+                  onMouseEnter={() => setDropdownOpen(true)}
+                >
+                  <MoreVertical className="h-4 w-4 text-gray-500" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                align="end"
+                className="w-48 border-gray-200 bg-white"
               >
-                <ExternalLink className="h-4 w-4 text-gray-500" />
-              </a>
-            )}
-            <button
-              onClick={() => onEdit(company)}
-              className="rounded-lg p-2 transition-colors hover:bg-pink-50"
-              title="Edit company"
-            >
-              <Pencil className="h-4 w-4 text-gray-500 hover:text-pink-600" />
-            </button>
-            <button
-              onClick={() => onDelete(company.id)}
-              className="rounded-lg p-2 transition-colors hover:bg-pink-50"
-              title="Delete company"
-            >
-              <Trash2 className="h-4 w-4 text-gray-500 hover:text-pink-600" />
-            </button>
+                {company.website && (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <a
+                        href={company.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex cursor-pointer items-center gap-2 text-gray-700 hover:bg-gray-100"
+                      >
+                        <ExternalLink className="h-4 w-4 text-gray-600" />
+                        Visit Website
+                      </a>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="bg-gray-200" />
+                  </>
+                )}
+                <DropdownMenuItem
+                  onClick={() => onEdit(company)}
+                  className="flex cursor-pointer items-center gap-2 text-gray-700 hover:bg-gray-100"
+                >
+                  <Pencil className="h-4 w-4 text-gray-600" />
+                  Edit
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => onDelete(company.id)}
+                  className="flex cursor-pointer items-center gap-2 text-red-600 hover:bg-red-50 focus:bg-red-50 focus:text-red-600"
+                >
+                  <Trash2 className="h-4 w-4 text-red-600" />
+                  Delete
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
         {company.description && (
