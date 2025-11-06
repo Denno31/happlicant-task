@@ -72,7 +72,7 @@ export default function HomePage() {
           </>
         )}
       </div>
-      <CompanyDialogForm open={isDialogOpen} onClose={() => setIsDialogOpen(false)}/>
+      <CompanyDialogForm open={isDialogOpen} onOpenChange={() => setIsDialogOpen(false)}/>
     </main>
   );
 }
