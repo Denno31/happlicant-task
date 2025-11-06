@@ -12,6 +12,7 @@ import CompanyDialogForm from "@/components/companies/company-dialog-form";
 import { CompanyDialogDelete } from "@/components/companies/company-dialog-delete";
 import { useRouter, useSearchParams } from "next/navigation";
 import { LoadingState } from "@/components/companies/loading-state";
+import { MainLayout } from "@/components/layout/MainLayout";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -147,40 +148,39 @@ export default function HomePage() {
   }, [companies, searchQuery, sortBy]);
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <Header
-          viewMode={viewMode}
-          onViewChange={handleViewChange}
-          onAdd={handleOpenDialog}
-          onSearchChange={handleSearchChange}
-          onSortChange={setSortBy}
-          searchQuery={searchQuery}
-          sortBy={sortBy}
-        />
-        {isLoading ? (
-          <LoadingState viewMode={viewMode} />
-        ) : companies.length === 0 ? (
-          <EmptyState onAdd={() => {}} />
-        ) : (
-          <>
-            <CompanyStats companies={companies} />{" "}
-            {viewMode === "grid" ? (
-              <CompanyGrid
-                companies={filteredAndSortedCompanies}
-                onDelete={(id) => setDeletedId(id)}
-                onEdit={handleOpenEdit}
-              />
-            ) : (
-              <CompanyTable
-                companies={filteredAndSortedCompanies}
-                onDelete={(id) => setDeletedId(id)}
-                onEdit={handleOpenEdit}
-              />
-            )}
-          </>
-        )}
-      </div>
+    <MainLayout
+      isHomePage={true}
+      viewMode={viewMode}
+      handleViewChange={handleViewChange}
+      handleOpenDialog={handleOpenDialog}
+      handleSearchChange={handleSearchChange}
+      setSortBy={setSortBy}
+      searchQuery={searchQuery}
+      sortBy={sortBy}
+    >
+      {isLoading ? (
+        <LoadingState viewMode={viewMode} />
+      ) : companies.length === 0 ? (
+        <EmptyState onAdd={() => {}} />
+      ) : (
+        <>
+          <CompanyStats companies={companies} />{" "}
+          {viewMode === "grid" ? (
+            <CompanyGrid
+              companies={filteredAndSortedCompanies}
+              onDelete={(id) => setDeletedId(id)}
+              onEdit={handleOpenEdit}
+            />
+          ) : (
+            <CompanyTable
+              companies={filteredAndSortedCompanies}
+              onDelete={(id) => setDeletedId(id)}
+              onEdit={handleOpenEdit}
+            />
+          )}
+        </>
+      )}
+
       <CompanyDialogForm
         open={isDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
@@ -193,6 +193,6 @@ export default function HomePage() {
         onConfirm={handleDelete}
         companyName=""
       />
-    </main>
+    </MainLayout>
   );
 }
