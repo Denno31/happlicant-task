@@ -50,7 +50,6 @@ export default function Header({
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-6">
               <Logo size="md" />
-              <div className="h-8 w-px bg-gray-300" />
             </div>
             <div className="flex items-center gap-3">
               <div className="flex rounded-lg border border-gray-200 bg-white p-1">

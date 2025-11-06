@@ -1,5 +1,5 @@
 import { Building2, Plus } from "lucide-react";
-import { Button } from "react-day-picker";
+import { Button } from "../ui/button";
 
 interface EmptyStatePros {
   onAdd: () => void;

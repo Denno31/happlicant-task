@@ -94,6 +94,27 @@ export default function CompanyCard({
             {company.description}
           </p>
         )}
+
+        {typeof company.industry === "object" &&
+          company.industry?.sectors &&
+          company.industry.sectors.length > 0 && (
+            <div className="mb-3 flex flex-wrap items-center gap-1.5">
+              {company.industry.sectors.slice(0, 3).map((sector) => (
+                <span
+                  key={sector}
+                  className="inline-flex items-center rounded-md border border-gray-200 bg-gray-100 px-2 py-1 text-xs font-medium text-gray-700"
+                >
+                  {sector}
+                </span>
+              ))}
+              {company.industry.sectors.length > 3 && (
+                <span className="text-xs font-medium text-gray-500">
+                  +{company.industry.sectors.length - 3} more
+                </span>
+              )}
+            </div>
+          )}
+
         <div className="space-y-2.5 border-t border-gray-100 pt-3">
           <div className="flex items-center gap-2.5">
             <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
