@@ -1,18 +1,94 @@
-import { Building2 } from "lucide-react";
-import Logo from "../common/Logo";
+'use client'
+import { ArrowUpDown, Building2, LayoutGrid, List, Plus, Search } from "lucide-react";
+import Logo from "../common/logo";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
-export default function Header() {
+interface HeaderProps {
+    viewMode: "grid" | "table";
+    onViewChange: (mode: "grid" | "table") => void;
+    onAdd: () => void;
+    onSearchChange: (query: string) => void;
+    onSortChange: (sort: string) => void;
+    searchQuery: string;
+    sortBy: string;
+}
+
+export default function Header({ viewMode, onViewChange, onAdd, onSearchChange, onSortChange, searchQuery, sortBy }: HeaderProps) {
   return (
-    <div className="sticky top-0 z-30 bg-white shadow-md border-b border-gray-200 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-6 mb-6">
-      <div className="space-y-5">
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-6">
-            <Logo size="md" /> 
+    <div className="sticky top-0 z-30 bg-white shadow-md border-b border-gray-200 mb-6">
+      <div className="border-b border-gray-200">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-6">
+              <Logo size="md" />
+              <div className="h-8 w-px bg-gray-300" />
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex rounded-lg border border-gray-200 bg-white p-1">
+                <button
+                  onClick={() => onViewChange("grid")}
+                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  <LayoutGrid className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => onViewChange("table")}
+                  className={`rounded-md px-3 py-1.5 text-sm font-medium transition-colors ${
+                    viewMode === "table"
+                      ? "bg-gray-900 text-white"
+                      : "text-gray-600 hover:text-gray-900"
+                  }`}
+                >
+                  <List className="h-4 w-4" />
+                </button>
+              </div>
+              <Button 
+                onClick={onAdd} 
+                className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-700 transition-colors shadow-sm hover:shadow-md"
+              >
+                <Plus className="h-4 w-4" />
+                Add Company
+              </Button>
+            </div>
           </div>
-
-        
+        </div>
       </div>
-    </div>
+      <div className="bg-gray-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <Input
+                type="text"
+                placeholder="Search companies by name, industry, or location..."
+                value={searchQuery}
+                onChange={(e) => onSearchChange(e.target.value)}
+                className="pl-10 h-10 bg-white"
+              />
+            </div>
+            <div className="flex items-center gap-2 sm:flex-shrink-0">
+              <ArrowUpDown className="h-4 w-4 text-gray-500 flex-shrink-0" />
+              <select
+                value={sortBy}
+                onChange={(e) => onSortChange(e.target.value)}
+                className="h-10 w-full sm:w-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20"
+              >
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="employees-desc">Most Employees</option>
+                <option value="employees-asc">Least Employees</option>
+                <option value="founded-desc">Newest</option>
+                <option value="founded-asc">Oldest</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
