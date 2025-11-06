@@ -1,24 +1,48 @@
-'use client'
-import { ArrowUpDown, Building2, LayoutGrid, List, Plus, Search } from "lucide-react";
+"use client";
+import {
+  ArrowUpDown,
+  Building2,
+  LayoutGrid,
+  List,
+  Plus,
+  Search,
+} from "lucide-react";
 import Logo from "../common/logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 interface HeaderProps {
-    viewMode: "grid" | "table";
-    onViewChange: (mode: "grid" | "table") => void;
-    onAdd: () => void;
-    onSearchChange: (query: string) => void;
-    onSortChange: (sort: string) => void;
-    searchQuery: string;
-    sortBy: string;
+  viewMode: "grid" | "table";
+  onViewChange: (mode: "grid" | "table") => void;
+  onAdd: () => void;
+  onSearchChange: (query: string) => void;
+  onSortChange: (sort: string) => void;
+  searchQuery: string;
+  sortBy: string;
 }
 
-export default function Header({ viewMode, onViewChange, onAdd, onSearchChange, onSortChange, searchQuery, sortBy }: HeaderProps) {
+const sortOptions = [
+  { value: "name-asc", label: "Name (A-Z)" },
+  { value: "name-desc", label: "Name (Z-A)" },
+  { value: "employees-desc", label: "Most Employees" },
+  { value: "employees-asc", label: "Least Employees" },
+  { value: "founded-desc", label: "Newest" },
+  { value: "founded-asc", label: "Oldest" },
+];
+
+export default function Header({
+  viewMode,
+  onViewChange,
+  onAdd,
+  onSearchChange,
+  onSortChange,
+  searchQuery,
+  sortBy,
+}: HeaderProps) {
   return (
-    <div className="sticky top-0 z-30 bg-white shadow-md border-b border-gray-200 mb-6">
+    <div className="sticky top-0 z-30 mb-6 border-b border-gray-200 bg-white shadow-md">
       <div className="border-b border-gray-200">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+        <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-6">
               <Logo size="md" />
@@ -47,9 +71,9 @@ export default function Header({ viewMode, onViewChange, onAdd, onSearchChange, 
                   <List className="h-4 w-4" />
                 </button>
               </div>
-              <Button 
-                onClick={onAdd} 
-                className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-pink-700 transition-colors shadow-sm hover:shadow-md"
+              <Button
+                onClick={onAdd}
+                className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-pink-700 hover:shadow-md"
               >
                 <Plus className="h-4 w-4" />
                 Add Company
@@ -59,31 +83,30 @@ export default function Header({ viewMode, onViewChange, onAdd, onSearchChange, 
         </div>
       </div>
       <div className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-3">
+        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
               <Input
                 type="text"
                 placeholder="Search companies by name, industry, or location..."
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
-                className="pl-10 h-10 bg-white"
+                className="h-10 bg-white pl-10"
               />
             </div>
             <div className="flex items-center gap-2 sm:flex-shrink-0">
-              <ArrowUpDown className="h-4 w-4 text-gray-500 flex-shrink-0" />
+              <ArrowUpDown className="h-4 w-4 flex-shrink-0 text-gray-500" />
               <select
                 value={sortBy}
                 onChange={(e) => onSortChange(e.target.value)}
-                className="h-10 w-full sm:w-auto rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20"
+                className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none sm:w-auto"
               >
-                <option value="name-asc">Name (A-Z)</option>
-                <option value="name-desc">Name (Z-A)</option>
-                <option value="employees-desc">Most Employees</option>
-                <option value="employees-asc">Least Employees</option>
-                <option value="founded-desc">Newest</option>
-                <option value="founded-asc">Oldest</option>
+                {sortOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
               </select>
             </div>
           </div>

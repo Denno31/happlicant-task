@@ -12,7 +12,7 @@ import CompanyDialogForm from "@/components/companies/company-dialog-form";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
-  const [loading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -35,7 +35,21 @@ export default function HomePage() {
     setIsDialogOpen(true);
   };
 
-  if (loading) {
+  const handleSubmit = (newCompany: Omit<Company, "id">) => {
+    const company: Company = {
+      ...newCompany,
+      id: crypto.randomUUID(),
+    };
+    setCompanies((prev) => [...prev, company]);
+    setIsDialogOpen(false);
+  };
+
+  useEffect(() => {
+    if (!isLoading)
+      localStorage.setItem("companies", JSON.stringify(companies));
+  }, [companies]);
+
+  if (isLoading) {
     return <div>loading..</div>;
   }
 
@@ -75,6 +89,7 @@ export default function HomePage() {
       <CompanyDialogForm
         open={isDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
+        onSubmit={handleSubmit}
       />
     </main>
   );

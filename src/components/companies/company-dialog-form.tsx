@@ -31,6 +31,7 @@ interface CompanyDialogFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   editingCompany?: Company | null;
+  onSubmit: (company: Omit<Company, "id">) => void;
 }
 
 const companyFormSchema = z.object({
@@ -52,6 +53,7 @@ export default function CompanyDialogForm({
   open,
   onOpenChange,
   editingCompany,
+  onSubmit,
 }: CompanyDialogFormProps) {
   const form = useForm<CompanyFormValues>({
     defaultValues: {
@@ -68,8 +70,29 @@ export default function CompanyDialogForm({
     },
   });
 
-  const handleFormSubmit = (data: CompanyFormValues) => {
-    console.log(data);
+  const handleFormSubmit = (values: CompanyFormValues) => {
+    const company: Omit<Company, "id"> = {
+      name: values.name,
+      description: values.description || undefined,
+      logo_url: values.logo_url || undefined,
+      website: values.website || undefined,
+      location:
+        values.city || values.country
+          ? {
+              city: values.city || undefined,
+              country: values.country || undefined,
+            }
+          : undefined,
+      industry: values.industry || undefined,
+      employee_count: values.employee_count
+        ? parseInt(values.employee_count, 10)
+        : undefined,
+      founded: values.founded ? parseInt(values.founded, 10) : undefined,
+      ceo: values.ceo_name || undefined,
+    };
+    onSubmit(company);
+    form.reset();
+    onOpenChange(false);
   };
 
   useEffect(() => {
