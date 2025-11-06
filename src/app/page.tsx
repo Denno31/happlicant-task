@@ -14,7 +14,7 @@ export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [loading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
-  const [isDialogOpen,setIsDialogOpen] = useState(false)
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
@@ -72,7 +72,10 @@ export default function HomePage() {
           </>
         )}
       </div>
-      <CompanyDialogForm open={isDialogOpen} onOpenChange={() => setIsDialogOpen(false)}/>
+      <CompanyDialogForm
+        open={isDialogOpen}
+        onOpenChange={() => setIsDialogOpen(false)}
+      />
     </main>
   );
 }

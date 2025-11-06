@@ -3,28 +3,33 @@ import { Building2, MapPin, TrendingUp, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 
 interface CompanyStatsProps {
-    companies: Company[];
+  companies: Company[];
 }
 
 function getColorClasses(color: string) {
-    switch (color) {
-        case "pink":
-            return "border-pink-600 bg-pink-50 text-pink-600";
-        case "blue":
-            return "border-blue-600 bg-blue-50 text-blue-600";
-        case "purple":
-            return "border-purple-600 bg-purple-50 text-purple-600";
-        case "green":
-            return "border-green-600 bg-green-50 text-green-600";
-        default:
-            return "border-gray-600 bg-gray-50 text-gray-600";
-    }
+  switch (color) {
+    case "pink":
+      return "border-pink-600 bg-pink-50 text-pink-600";
+    case "blue":
+      return "border-blue-600 bg-blue-50 text-blue-600";
+    case "purple":
+      return "border-purple-600 bg-purple-50 text-purple-600";
+    case "green":
+      return "border-green-600 bg-green-50 text-green-600";
+    default:
+      return "border-gray-600 bg-gray-50 text-gray-600";
+  }
 }
 export default function CompanyStats({ companies }: CompanyStatsProps) {
   const totalCompanies = companies.length;
-  const totalEmployees = companies.reduce((acc, company) => acc + (company?.employee_count || 0), 0);
-  const uniqueIndustries = new Set(companies.map((company) => company.industry)).size;
-  const uniqueLocations = new Set(companies.map((company) => company.location)).size;
+  const totalEmployees = companies.reduce(
+    (acc, company) => acc + (company?.employee_count || 0),
+    0,
+  );
+  const uniqueIndustries = new Set(companies.map((company) => company.industry))
+    .size;
+  const uniqueLocations = new Set(companies.map((company) => company.location))
+    .size;
   const stats = [
     {
       label: "Total Companies",
@@ -51,22 +56,28 @@ export default function CompanyStats({ companies }: CompanyStatsProps) {
       color: "green",
     },
   ];
-   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-6">
+  return (
+    <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => {
         const Icon = stat.icon;
         return (
           <Card
             key={stat.label}
-            className="transition-all hover:shadow-md border-gray-200 py-0"
+            className="border-gray-200 py-0 transition-all hover:shadow-md"
           >
             <CardContent className="p-5">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">{stat.label}</p>
-                  <p className="mt-2 text-3xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-sm font-medium text-gray-600">
+                    {stat.label}
+                  </p>
+                  <p className="mt-2 text-3xl font-bold text-gray-900">
+                    {stat.value}
+                  </p>
                 </div>
-                <div className={`flex h-12 w-12 items-center justify-center rounded-lg border ${getColorClasses(stat.color)}`}>
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-lg border ${getColorClasses(stat.color)}`}
+                >
                   <Icon className="h-6 w-6" />
                 </div>
               </div>

@@ -1,7 +1,7 @@
 import type { Company } from "@/types/company";
 
 interface IndustryTagProps {
-    industry: Company["industry"]
+  industry: Company["industry"];
 }
 
 function formatIndustry(industry: Company["industry"]): string {
@@ -11,9 +11,9 @@ function formatIndustry(industry: Company["industry"]): string {
 }
 
 export default function IndustryTag({ industry }: IndustryTagProps) {
-    return (
-        <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800">
-            {formatIndustry(industry)}
-        </span>
-    );
+  return (
+    <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-xs font-medium text-gray-800">
+      {formatIndustry(industry)}
+    </span>
+  );
 }

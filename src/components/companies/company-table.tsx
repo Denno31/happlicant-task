@@ -27,7 +27,11 @@ function formatLocation(location: Company["location"]): string {
   return parts.length > 0 ? parts.join(", ") : "—";
 }
 
-export default function CompanyTable({ companies, onDelete, onEdit }: CompanyTableProps) {
+export default function CompanyTable({
+  companies,
+  onDelete,
+  onEdit,
+}: CompanyTableProps) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       <Table>
@@ -57,38 +61,38 @@ export default function CompanyTable({ companies, onDelete, onEdit }: CompanyTab
           {companies.map((company) => (
             <TableRow key={company.id} className="group">
               <TableCell className="px-6 py-4">
-                  <div className="flex items-center gap-3">
-                    {company.logo_url ? (
-                      <img
-                        src={company.logo_url}
-                        alt={company.name}
-                        className="h-10 w-10 rounded-lg border border-gray-200 object-contain p-1.5"
-                        onError={(e) => {
-                          e.currentTarget.style.display = "none";
-                        }}
-                      />
-                    ) : (
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-pink-50 to-pink-100 border border-pink-200">
-                        <Building2 className="h-5 w-5 text-pink-600" />
-                      </div>
-                    )}
-                    <div>
-                      <div className="font-semibold text-gray-900">
-                        {company.name}
-                      </div>
-                      {company.website && (
-                        <a
-                          href={company.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-xs text-pink-600 hover:text-pink-700"
-                        >
-                          <ExternalLink className="h-3 w-3" />
-                          Website
-                        </a>
-                      )}
+                <div className="flex items-center gap-3">
+                  {company.logo_url ? (
+                    <img
+                      src={company.logo_url}
+                      alt={company.name}
+                      className="h-10 w-10 rounded-lg border border-gray-200 object-contain p-1.5"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                  ) : (
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
+                      <Building2 className="h-5 w-5 text-pink-600" />
                     </div>
+                  )}
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      {company.name}
+                    </div>
+                    {company.website && (
+                      <a
+                        href={company.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-xs text-pink-600 hover:text-pink-700"
+                      >
+                        <ExternalLink className="h-3 w-3" />
+                        Website
+                      </a>
+                    )}
                   </div>
+                </div>
               </TableCell>
               <TableCell className="px-6 py-4">
                 <IndustryTag industry={company.industry} />
@@ -97,26 +101,28 @@ export default function CompanyTable({ companies, onDelete, onEdit }: CompanyTab
                 {formatLocation(company.location)}
               </TableCell>
               <TableCell className="px-6 py-4 text-sm font-medium text-gray-900">
-                {company.employee_count ? company.employee_count.toLocaleString() : "—"}
+                {company.employee_count
+                  ? company.employee_count.toLocaleString()
+                  : "—"}
               </TableCell>
               <TableCell className="px-6 py-4 text-sm text-gray-700">
                 {company.founded ?? "—"}
               </TableCell>
               <TableCell className="px-6 py-4 text-right">
-                  <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button
-                      onClick={() => onEdit(company)}
-                      className="p-2 rounded-lg hover:bg-pink-50 transition-colors"
-                      title="Edit company"
-                    >
-                      <Pencil className="h-4 w-4 text-gray-500 hover:text-pink-600" />
-                    </button>
-                    <button
-                      onClick={() => onDelete(company.id)}
-                      className="p-2 rounded-lg hover:bg-pink-50 transition-colors"
-                      title="Delete company"
-                    >
-                      <Trash2 className="h-4 w-4 text-gray-500 hover:text-pink-600" />
+                <div className="flex items-center justify-end gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                  <button
+                    onClick={() => onEdit(company)}
+                    className="rounded-lg p-2 transition-colors hover:bg-pink-50"
+                    title="Edit company"
+                  >
+                    <Pencil className="h-4 w-4 text-gray-500 hover:text-pink-600" />
+                  </button>
+                  <button
+                    onClick={() => onDelete(company.id)}
+                    className="rounded-lg p-2 transition-colors hover:bg-pink-50"
+                    title="Delete company"
+                  >
+                    <Trash2 className="h-4 w-4 text-gray-500 hover:text-pink-600" />
                   </button>
                 </div>
               </TableCell>

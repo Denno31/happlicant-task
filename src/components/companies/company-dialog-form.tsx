@@ -9,11 +9,23 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
-import { Building2, Calendar, FileText, Globe, MapPin, Plus, Save, TrendingUp, User, Users } from "lucide-react";
+import {
+  Building2,
+  Calendar,
+  FileText,
+  Globe,
+  MapPin,
+  Plus,
+  Save,
+  TrendingUp,
+  User,
+  Users,
+} from "lucide-react";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
+import { useEffect } from "react";
 
 interface CompanyDialogFormProps {
   open: boolean;
@@ -41,23 +53,66 @@ export default function CompanyDialogForm({
   onOpenChange,
   editingCompany,
 }: CompanyDialogFormProps) {
-    const form = useForm<CompanyFormValues>({
-        defaultValues:  {
-            name: "",
-            description: "",
-            industry: "",
-            website: "",
-            city: "",
-            country: "",
-            employee_count: "",
-            founded: "",
-            ceo_name: "",
-            logo_url: "",
-        },
-    })
-    const handleFormSubmit = (data: CompanyFormValues) => {
-        console.log(data)
+  const form = useForm<CompanyFormValues>({
+    defaultValues: {
+      name: "",
+      description: "",
+      industry: "",
+      website: "",
+      city: "",
+      country: "",
+      employee_count: "",
+      founded: "",
+      ceo_name: "",
+      logo_url: "",
+    },
+  });
+
+  const handleFormSubmit = (data: CompanyFormValues) => {
+    console.log(data);
+  };
+
+  useEffect(() => {
+    if (editingCompany) {
+      const location =
+        typeof editingCompany.location === "object"
+          ? editingCompany.location
+          : {};
+      const ceoName =
+        typeof editingCompany.ceo === "string"
+          ? editingCompany.ceo
+          : editingCompany.ceo?.name || "";
+      form.reset({
+        name: editingCompany.name || "",
+        description: editingCompany.description || "",
+        logo_url: editingCompany.logo_url || "",
+        website: editingCompany.website || "",
+        city: location.city || "",
+        country: location.country || "",
+        industry:
+          typeof editingCompany.industry === "string"
+            ? editingCompany.industry
+            : editingCompany.industry?.primary || "",
+        employee_count: editingCompany.employee_count?.toString() || "",
+        founded: editingCompany.founded?.toString() || "",
+        ceo_name: ceoName,
+      });
+    } else {
+      form.reset({
+        name: "",
+        description: "",
+        logo_url: "",
+        website: "",
+        city: "",
+        country: "",
+        industry: "",
+        employee_count: "",
+        founded: "",
+        ceo_name: "",
+      });
     }
+  }, [editingCompany, form]);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent>
@@ -76,7 +131,6 @@ export default function CompanyDialogForm({
             onSubmit={form.handleSubmit(handleFormSubmit)}
             className="space-y-6"
           >
-            {/* Basic Info */}
             <div className="space-y-4">
               <h3 className="border-b border-gray-200 pb-2 text-xs font-semibold tracking-wide text-gray-700 uppercase">
                 Basic Information
@@ -101,7 +155,6 @@ export default function CompanyDialogForm({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
                 name="description"
@@ -123,7 +176,6 @@ export default function CompanyDialogForm({
                   </FormItem>
                 )}
               />
-
               <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -141,7 +193,6 @@ export default function CompanyDialogForm({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="website"
@@ -185,7 +236,6 @@ export default function CompanyDialogForm({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="country"
@@ -204,8 +254,6 @@ export default function CompanyDialogForm({
                 />
               </div>
             </div>
-
-            {/* Additional Details */}
             <div className="space-y-4">
               <h3 className="border-b border-gray-200 pb-2 text-xs font-semibold tracking-wide text-gray-700 uppercase">
                 Additional Details
@@ -233,7 +281,6 @@ export default function CompanyDialogForm({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="founded"
@@ -257,7 +304,6 @@ export default function CompanyDialogForm({
                   )}
                 />
               </div>
-
               <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
@@ -275,7 +321,6 @@ export default function CompanyDialogForm({
                     </FormItem>
                   )}
                 />
-
                 <FormField
                   control={form.control}
                   name="logo_url"
