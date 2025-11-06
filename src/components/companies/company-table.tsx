@@ -108,7 +108,7 @@ export default function CompanyTable({
                 {company.founded ?? "—"}
               </TableCell>
               <TableCell className="px-6 py-4 text-right">
-                <div className="flex items-center justify-end gap-2 opacity-0 transition-opacity group-hover:opacity-100">
+                <div className="flex items-center justify-end gap-2 transition-opacity md:opacity-0 md:group-hover:opacity-100">
                   <button
                     onClick={() => onEdit(company)}
                     className="rounded-lg p-2 transition-colors hover:bg-pink-50"

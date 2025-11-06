@@ -24,7 +24,7 @@ export default function CompanyCardActionMenu({
   setDropdownOpen,
 }: CompanyCardActionMenuProps) {
   return (
-    <div className="opacity-0 transition-opacity group-hover:opacity-100">
+    <div className="transition-opacity md:opacity-0 md:group-hover:opacity-100">
       <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
         <DropdownMenuTrigger asChild>
           <button
