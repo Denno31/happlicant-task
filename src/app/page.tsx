@@ -11,6 +11,7 @@ import CompanyTable from "@/components/companies/company-table";
 import CompanyDialogForm from "@/components/companies/company-dialog-form";
 import { CompanyDialogDelete } from "@/components/companies/company-dialog-delete";
 import { useRouter, useSearchParams } from "next/navigation";
+import { LoadingState } from "@/components/companies/loading-state";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -145,10 +146,6 @@ export default function HomePage() {
     return sorted;
   }, [companies, searchQuery, sortBy]);
 
-  if (isLoading) {
-    return <div>loading..</div>;
-  }
-
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -161,7 +158,9 @@ export default function HomePage() {
           searchQuery={searchQuery}
           sortBy={sortBy}
         />
-        {companies.length === 0 ? (
+        {isLoading ? (
+          <LoadingState viewMode={viewMode} />
+        ) : companies.length === 0 ? (
           <EmptyState onAdd={() => {}} />
         ) : (
           <>
