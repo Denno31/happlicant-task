@@ -16,14 +16,15 @@ import {
   User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import type { Company } from "@/types/company";
 import IndustryTag from "@/components/companies/industry-tag";
+import { CompanyDetailsLoading } from "@/components/companies/company-details-loading";
 
 interface CompanyDetailsPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 function formatLocation(location: Company["location"]): string {
@@ -52,35 +53,17 @@ export default function companyDetailsPage({
   const router = useRouter();
   const [company, setCompany] = useState<Company | null>(null);
   const [loading, setLoading] = useState(true);
+  const { id } = use(params);
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
     if (storedCompanies) {
       const companies: Company[] = JSON.parse(storedCompanies);
-      const foundCompany = companies.find((c) => c.id === params.id);
+      const foundCompany = companies.find((c) => c.id === id);
       setCompany(foundCompany || null);
     }
     setLoading(false);
-  }, [params.id]);
-
-  if (loading) {
-    return (
-      <MainLayout
-        isHomePage={false}
-        viewMode={"table"}
-        handleViewChange={() => {}}
-        handleOpenDialog={() => {}}
-        handleSearchChange={() => {}}
-        setSortBy={() => {}}
-        searchQuery={""}
-        sortBy={""}
-      >
-        <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-pink-200 border-t-pink-600" />
-        </div>
-      </MainLayout>
-    );
-  }
+  }, [id]);
 
   if (!company) {
     return (
@@ -94,6 +77,29 @@ export default function companyDetailsPage({
         searchQuery={""}
         sortBy={""}
       >
+        {!company && (
+          <div className="space-y-6">
+            <Button
+              variant="ghost"
+              onClick={() => router.back()}
+              className="group gap-2 text-gray-600 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+              Back
+            </Button>
+            <Card className="border-gray-200">
+              <CardContent className="flex flex-col items-center justify-center py-12">
+                <Building2 className="mb-4 h-16 w-16 text-gray-300" />
+                <p className="text-lg font-semibold text-gray-900">
+                  Company not found
+                </p>
+                <p className="mt-1 text-sm text-gray-500">
+                  The company you're looking for doesn't exist.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        )}
         <div className="space-y-6">
           <Button
             variant="ghost"
@@ -132,6 +138,7 @@ export default function companyDetailsPage({
       searchQuery={""}
       sortBy={""}
     >
+      {loading && <CompanyDetailsLoading />}
       <div className="space-y-6">
         <Button
           variant="ghost"
