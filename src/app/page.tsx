@@ -8,10 +8,13 @@ import Header from "@/components/layout/header";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";
 import dummyData from "@/../dummyData.json"
+import { EmptyState } from "@/components/companies/empty-state";
+import CompanyGrid from "@/components/companies/company-grid";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([])
   const [loading, setIsLoading] = useState(true)
+  const [viewMode, setViewMode] = useState<"grid" | "table">("grid")
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies")
@@ -20,10 +23,14 @@ export default function HomePage() {
 
     } else {
       setCompanies(dummyData as Company[])
-
+      localStorage.setItem("companies", JSON.stringify(dummyData));
     }
     setIsLoading(false)
   }, [])
+
+  const handleViewChange = (mode: "grid" | "table") => {
+    setViewMode(mode)
+  }
 
   if (loading) {
     return <div>loading..</div>
@@ -32,8 +39,10 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <Header viewMode="grid" onViewChange={() => { }} onAdd={() => { }} onSearchChange={() => { }} onSortChange={() => { }} searchQuery="" sortBy="" />
-        <CompanyStats companies={companies} />
+        <Header viewMode={viewMode} onViewChange={handleViewChange} onAdd={() => { }} onSearchChange={() => { }} onSortChange={() => { }} searchQuery="" sortBy="" />
+        {
+          companies.length === 0 ? <EmptyState onAdd={() => { }} /> : <><CompanyStats companies={companies} /> <CompanyGrid companies={companies} onDelete={() => { }} onEdit={() => { }} /></>
+        }
       </div>
     </main>
   );
