@@ -1,15 +1,13 @@
 'use client'
 import { useState } from "react";
-import { useEffect } from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { GithubIcon, MailIcon } from "lucide-react";
+import { useEffect } from "react"
 import Header from "@/components/layout/header";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";
 import dummyData from "@/../dummyData.json"
 import { EmptyState } from "@/components/companies/empty-state";
 import CompanyGrid from "@/components/companies/company-grid";
+import CompanyTable from "@/components/companies/company-table";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([])
@@ -41,7 +39,7 @@ export default function HomePage() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <Header viewMode={viewMode} onViewChange={handleViewChange} onAdd={() => { }} onSearchChange={() => { }} onSortChange={() => { }} searchQuery="" sortBy="" />
         {
-          companies.length === 0 ? <EmptyState onAdd={() => { }} /> : <><CompanyStats companies={companies} /> <CompanyGrid companies={companies} onDelete={() => { }} onEdit={() => { }} /></>
+          companies.length === 0 ? <EmptyState onAdd={() => { }} /> : <><CompanyStats companies={companies} /> {viewMode === "grid" ? <CompanyGrid companies={companies} onDelete={() => { }} onEdit={() => { }} /> : <CompanyTable companies={companies} onDelete={() => { }} onEdit={() => { }} />}</>
         }
       </div>
     </main>

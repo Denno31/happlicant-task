@@ -38,7 +38,6 @@ export default function CompanyCard({ company, onEdit, onDelete }: CompanyCardPr
               <Building2 className="h-6 w-6 text-pink-600" />
             </div>
           )}
-          
           <div className="min-w-0 flex-1">
             <h3 className="text-base font-semibold text-gray-900 leading-snug">
               {company.name}
