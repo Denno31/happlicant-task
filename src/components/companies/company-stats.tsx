@@ -1,5 +1,5 @@
 import type { Company } from "@/types/company";
-import { Building2, MapPin, TrendingUp, Users } from "lucide-react";
+import { MapPin, Sparkles, TrendingUp, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 
 interface CompanyStatsProps {
@@ -34,7 +34,7 @@ export default function CompanyStats({ companies }: CompanyStatsProps) {
     {
       label: "Total Companies",
       value: totalCompanies.toLocaleString(),
-      icon: Building2,
+      icon: Sparkles,
       color: "pink",
     },
     {

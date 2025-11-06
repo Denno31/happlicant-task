@@ -1,4 +1,4 @@
-import { Building2, Calendar, MapPin, Users } from "lucide-react";
+import { Sparkles, Calendar, MapPin, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import type { Company } from "@/types/company";
 import IndustryTag from "./industry-tag";
@@ -40,7 +40,7 @@ export default function CompanyCard({
               </div>
             ) : (
               <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
-                <Building2 className="h-6 w-6 text-pink-600" />
+                <Sparkles className="h-6 w-6 text-pink-600" />
               </div>
             )}
             <div className="min-w-0 flex-1">

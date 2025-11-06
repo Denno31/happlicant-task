@@ -6,7 +6,6 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   ArrowLeft,
-  Building2,
   MapPin,
   Users,
   Calendar,
@@ -14,6 +13,7 @@ import {
   Globe,
   Briefcase,
   User,
+  Sparkles,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use, useEffect, useState } from "react";
@@ -70,7 +70,7 @@ export default function companyDetailsPage({
             </Button>
             <Card className="border-gray-200">
               <CardContent className="flex flex-col items-center justify-center py-12">
-                <Building2 className="mb-4 h-16 w-16 text-gray-300" />
+                <Sparkles className="mb-4 h-16 w-16 text-gray-300" />
                 <p className="text-lg font-semibold text-gray-900">
                   Company not found
                 </p>
@@ -92,7 +92,7 @@ export default function companyDetailsPage({
           </Button>
           <Card className="border-gray-200">
             <CardContent className="flex flex-col items-center justify-center py-12">
-              <Building2 className="mb-4 h-16 w-16 text-gray-300" />
+              <Sparkles className="mb-4 h-16 w-16 text-gray-300" />
               <p className="text-lg font-semibold text-gray-900">
                 Company not found
               </p>
@@ -145,7 +145,7 @@ export default function companyDetailsPage({
                   />
                 ) : (
                   <div className="flex h-24 w-24 items-center justify-center rounded-lg border border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
-                    <Building2 className="h-12 w-12 text-pink-600" />
+                    <Sparkles className="h-12 w-12 text-pink-600" />
                   </div>
                 )}
               </div>

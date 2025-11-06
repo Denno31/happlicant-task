@@ -12,7 +12,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Trash2, ExternalLink, Building2, Pencil } from "lucide-react";
+import { Trash2, ExternalLink, Pencil, Sparkles } from "lucide-react";
 import IndustryTag from "./industry-tag";
 
 interface CompanyTableProps {
@@ -67,7 +67,7 @@ export default function CompanyTable({
                     />
                   ) : (
                     <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
-                      <Building2 className="h-5 w-5 text-pink-600" />
+                      <Sparkles className="h-5 w-5 text-pink-600" />
                     </div>
                   )}
                   <div>

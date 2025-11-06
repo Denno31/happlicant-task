@@ -1,12 +1,5 @@
 "use client";
-import {
-  ArrowUpDown,
-  Building2,
-  LayoutGrid,
-  List,
-  Plus,
-  Search,
-} from "lucide-react";
+import { ArrowUpDown, LayoutGrid, List, Plus, Search } from "lucide-react";
 import Logo from "../common/logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";

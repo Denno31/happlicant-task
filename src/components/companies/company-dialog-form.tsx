@@ -10,13 +10,13 @@ import {
   FormMessage,
 } from "../ui/form";
 import {
-  Building2,
   Calendar,
   FileText,
   Globe,
   MapPin,
   Plus,
   Save,
+  Sparkles,
   TrendingUp,
   User,
   Users,
@@ -124,7 +124,7 @@ export default function CompanyDialogForm({
         typeof editingCompany.industry === "object"
           ? editingCompany.industry
           : null;
-      
+
       form.reset({
         name: editingCompany.name || "",
         description: editingCompany.description || "",
@@ -191,7 +191,7 @@ export default function CompanyDialogForm({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="flex items-center gap-2">
-                      <Building2 className="h-4 w-4 text-pink-600" />
+                      <Sparkles className="h-4 w-4 text-pink-600" />
                       Company Name <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -263,7 +263,7 @@ export default function CompanyDialogForm({
                   )}
                 />
               </div>
-              
+
               <div className="space-y-2">
                 <FormLabel className="flex items-center gap-2">
                   <TrendingUp className="h-4 w-4 text-purple-600" />
@@ -278,7 +278,10 @@ export default function CompanyDialogForm({
                       onKeyDown={(e) => {
                         if (e.key === "Enter") {
                           e.preventDefault();
-                          if (sectorInput.trim() && !sectors.includes(sectorInput.trim())) {
+                          if (
+                            sectorInput.trim() &&
+                            !sectors.includes(sectorInput.trim())
+                          ) {
                             setSectors([...sectors, sectorInput.trim()]);
                             setSectorInput("");
                           }
@@ -291,7 +294,10 @@ export default function CompanyDialogForm({
                       variant="outline"
                       size="sm"
                       onClick={() => {
-                        if (sectorInput.trim() && !sectors.includes(sectorInput.trim())) {
+                        if (
+                          sectorInput.trim() &&
+                          !sectors.includes(sectorInput.trim())
+                        ) {
                           setSectors([...sectors, sectorInput.trim()]);
                           setSectorInput("");
                         }
@@ -312,7 +318,9 @@ export default function CompanyDialogForm({
                           {sector}
                           <button
                             type="button"
-                            onClick={() => setSectors(sectors.filter((_, i) => i !== index))}
+                            onClick={() =>
+                              setSectors(sectors.filter((_, i) => i !== index))
+                            }
                             className="ml-1 rounded-full hover:bg-gray-200"
                           >
                             <X className="h-3 w-3" />
@@ -439,7 +447,7 @@ export default function CompanyDialogForm({
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="flex items-center gap-2">
-                        <Building2 className="h-4 w-4 text-pink-600" />
+                        <Sparkles className="h-4 w-4 text-pink-600" />
                         Logo URL
                       </FormLabel>
                       <FormControl>

@@ -1,4 +1,4 @@
-import { Building2, Plus } from "lucide-react";
+import { Plus, Sparkles } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface EmptyStatePros {
@@ -10,7 +10,7 @@ export function EmptyState({ onAdd }: EmptyStatePros) {
     <div className="flex min-h-[400px] items-center justify-center rounded-xl border-2 border-dashed border-gray-300 bg-white p-12">
       <div className="space-y-6 text-center">
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-2xl border border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
-          <Building2 className="h-10 w-10 text-pink-600" />
+          <Sparkles className="h-10 w-10 text-pink-600" />
         </div>
         <div>
           <h3 className="text-xl font-bold text-gray-900">No companies yet</h3>
