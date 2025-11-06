@@ -54,7 +54,7 @@ export default function Header({
               <Logo size="md" />
             </div>
             <div className="flex items-center gap-3">
-              {!isHomePage && (
+              {isHomePage && (
                 <div className="flex rounded-lg border border-gray-200 bg-white p-1">
                   <button
                     onClick={() => onViewChange("grid")}
@@ -78,47 +78,51 @@ export default function Header({
                   </button>
                 </div>
               )}
-              <Button
-                onClick={onAdd}
-                className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-pink-700 hover:shadow-md"
-              >
-                <Plus className="h-4 w-4" />
-                Add Company
-              </Button>
+              {isHomePage && (
+                <Button
+                  onClick={onAdd}
+                  className="h-10 gap-2 bg-pink-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-pink-700 hover:shadow-md"
+                >
+                  <Plus className="h-4 w-4" />
+                  Add Company
+                </Button>
+              )}
             </div>
           </div>
         </div>
       </div>
-      <div className="bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="relative flex-1">
-              <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
-              <Input
-                type="text"
-                placeholder="Search companies by name, industry, or location..."
-                value={searchQuery}
-                onChange={(e) => onSearchChange(e.target.value)}
-                className="h-10 bg-white pl-10"
-              />
-            </div>
-            <div className="flex items-center gap-2 sm:flex-shrink-0">
-              <ArrowUpDown className="h-4 w-4 flex-shrink-0 text-gray-500" />
-              <select
-                value={sortBy}
-                onChange={(e) => onSortChange(e.target.value)}
-                className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none sm:w-auto"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
+      {isHomePage && (
+        <div className="bg-gray-50">
+          <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="relative flex-1">
+                <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                <Input
+                  type="text"
+                  placeholder="Search companies by name, industry, or location..."
+                  value={searchQuery}
+                  onChange={(e) => onSearchChange(e.target.value)}
+                  className="h-10 bg-white pl-10"
+                />
+              </div>
+              <div className="flex items-center gap-2 sm:flex-shrink-0">
+                <ArrowUpDown className="h-4 w-4 flex-shrink-0 text-gray-500" />
+                <select
+                  value={sortBy}
+                  onChange={(e) => onSortChange(e.target.value)}
+                  className="h-10 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm transition-colors focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none sm:w-auto"
+                >
+                  {sortOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

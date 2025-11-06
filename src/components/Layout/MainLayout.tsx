@@ -33,6 +33,7 @@ export function MainLayout({
           onSortChange={setSortBy}
           searchQuery={searchQuery}
           sortBy={sortBy}
+          isHomePage={isHomePage}
         />
         {children}
       </div>

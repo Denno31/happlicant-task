@@ -1,7 +1,6 @@
 "use client";
 
 import { type Company } from "@/types/company";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 import {
@@ -27,15 +26,6 @@ function formatLocation(location: Company["location"]): string {
   const parts = [location.city, location.country].filter(Boolean);
   return parts.length > 0 ? parts.join(", ") : "—";
 }
-
-const tableHeaders = [
-  "Company",
-  "Industry",
-  "Location",
-  "Employees",
-  "Founded",
-  "Actions",
-];
 
 export default function CompanyTable({
   companies,
