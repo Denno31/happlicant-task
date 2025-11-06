@@ -1,6 +1,7 @@
 import { Building2, Calendar, ExternalLink, MapPin, Pencil, Trash2, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import type { Company } from "@/types/company";
+import IndustryTag from "./industry-tag";
 
 interface CompanyCardProps {
     company: Company
@@ -21,7 +22,6 @@ export default function CompanyCard({ company, onEdit, onDelete }: CompanyCardPr
       <CardContent className="p-5">
         <div className="relative flex items-start justify-between gap-4 mb-4">
         <div className="flex items-start gap-3 flex-1 min-w-0">
-          {/* Logo/Icon */}
           {company.logo_url ? (
             <div className="flex-shrink-0">
               <img
@@ -39,15 +39,13 @@ export default function CompanyCard({ company, onEdit, onDelete }: CompanyCardPr
             </div>
           )}
           
-          {/* Company Info */}
           <div className="min-w-0 flex-1">
             <h3 className="text-base font-semibold text-gray-900 leading-snug">
-              {/* {abbreviateCompanyName(company.name)} */}
               {company.name}
             </h3>
-            {/* <div className="mt-1.5">
+           {company.industry && <div className="mt-1.5">
               <IndustryTag industry={company.industry} />
-            </div> */}
+            </div>}
           </div>
         </div>
         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
