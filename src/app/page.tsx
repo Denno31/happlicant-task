@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useEffect } from "react";
 import Header from "@/components/layout/header";
 import CompanyStats from "@/components/companies/company-stats";
@@ -101,6 +101,31 @@ export default function HomePage() {
       localStorage.setItem("companies", JSON.stringify(companies));
   }, [companies, isLoading]);
 
+  const filteredAndSortedCompanies = useMemo(() => {
+    let filtered = companies;
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase();
+      filtered = companies.filter((company) => {
+        const name = company.name.toLowerCase();
+        const industry =
+          typeof company.industry === "string"
+            ? company.industry.toLowerCase()
+            : company.industry?.primary.toLowerCase() || "";
+        const location =
+          typeof company.location === "string"
+            ? company.location.toLowerCase()
+            : `${company.location?.city || ""} ${company.location?.country || ""}`.toLowerCase();
+
+        return (
+          name.includes(query) ||
+          industry.includes(query) ||
+          location.includes(query)
+        );
+      });
+    }
+    return filtered;
+  }, [companies, searchQuery]);
+
   if (isLoading) {
     return <div>loading..</div>;
   }
@@ -124,13 +149,13 @@ export default function HomePage() {
             <CompanyStats companies={companies} />{" "}
             {viewMode === "grid" ? (
               <CompanyGrid
-                companies={companies}
+                companies={filteredAndSortedCompanies}
                 onDelete={(id) => setDeletedId(id)}
                 onEdit={handleOpenEdit}
               />
             ) : (
               <CompanyTable
-                companies={companies}
+                companies={filteredAndSortedCompanies}
                 onDelete={(id) => setDeletedId(id)}
                 onEdit={handleOpenEdit}
               />
