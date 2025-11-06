@@ -19,6 +19,7 @@ export default function HomePage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deletedId, setDeletedId] = useState<string | null>(null);
   const [editingCompany, setEditingCompany] = useState<Company | null>(null);
+  const [sortBy, setSortBy] = useState<string>("");
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -123,8 +124,26 @@ export default function HomePage() {
         );
       });
     }
-    return filtered;
-  }, [companies, searchQuery]);
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case "name-asc":
+          return a.name.localeCompare(b.name);
+        case "name-desc":
+          return b.name.localeCompare(a.name);
+        case "employees-asc":
+          return (a.employee_count || 0) - (b.employee_count || 0);
+        case "employees-desc":
+          return (b.employee_count || 0) - (a.employee_count || 0);
+        case "founded-asc":
+          return (a.founded || 9999) - (b.founded || 9999);
+        case "founded-desc":
+          return (b.founded || 0) - (a.founded || 0);
+        default:
+          return 0;
+      }
+    });
+    return sorted;
+  }, [companies, searchQuery, sortBy]);
 
   if (isLoading) {
     return <div>loading..</div>;
@@ -138,9 +157,9 @@ export default function HomePage() {
           onViewChange={handleViewChange}
           onAdd={handleOpenDialog}
           onSearchChange={handleSearchChange}
-          onSortChange={() => {}}
+          onSortChange={setSortBy}
           searchQuery={searchQuery}
-          sortBy=""
+          sortBy={sortBy}
         />
         {companies.length === 0 ? (
           <EmptyState onAdd={() => {}} />
