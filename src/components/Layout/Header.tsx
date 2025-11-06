@@ -54,7 +54,7 @@ export default function Header({
               <Logo size="md" />
             </div>
             <div className="flex items-center gap-3">
-              {isHomePage && (
+              {!isHomePage && (
                 <div className="flex rounded-lg border border-gray-200 bg-white p-1">
                   <button
                     onClick={() => onViewChange("grid")}

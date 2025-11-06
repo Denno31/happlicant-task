@@ -1,25 +1,10 @@
-import {
-  Building2,
-  Calendar,
-  ExternalLink,
-  MapPin,
-  MoreVertical,
-  Pencil,
-  Trash2,
-  Users,
-} from "lucide-react";
+import { Building2, Calendar, MapPin, Users } from "lucide-react";
 import { Card, CardContent } from "../ui/card";
 import type { Company } from "@/types/company";
 import IndustryTag from "./industry-tag";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "../ui/dropdown-menu";
-import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 import CompanyCardActionMenu from "./companies-card-action-menu";
+import Link from "next/link";
 
 interface CompanyCardProps {
   company: Company;
@@ -65,9 +50,12 @@ export default function CompanyCard({
               </div>
             )}
             <div className="min-w-0 flex-1">
-              <h3 className="text-base leading-snug font-semibold text-gray-900">
+              <Link
+                href={`/company/${company.id}`}
+                className="text-base font-semibold text-gray-900 hover:text-pink-600"
+              >
                 {company.name}
-              </h3>
+              </Link>
               {company.industry && (
                 <div className="mt-1.5">
                   <IndustryTag industry={company.industry} />
