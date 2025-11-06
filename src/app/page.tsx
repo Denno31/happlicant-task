@@ -17,6 +17,7 @@ export default function HomePage() {
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deletedId, setDeletedId] = useState<string | null>(null);
+  const [editingCompany, setEditingCompany] = useState<Company | null>(null);
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
@@ -46,6 +47,19 @@ export default function HomePage() {
     setIsDialogOpen(false);
   };
 
+  const handleEditCompany = (updatedCompany: Omit<Company, "id">) => {
+    if (editingCompany) {
+      setCompanies(
+        companies.map((c) =>
+          c.id === editingCompany.id
+            ? { ...updatedCompany, id: editingCompany.id }
+            : c,
+        ),
+      );
+      setEditingCompany(null);
+    }
+  };
+
   const handleDelete = () => {
     if (deletedId) {
       setCompanies((prev) =>
@@ -53,6 +67,11 @@ export default function HomePage() {
       );
       setDeletedId(null);
     }
+  };
+
+  const handleOpenEdit = (company: Company) => {
+    setEditingCompany(company);
+    setIsDialogOpen(true);
   };
 
   useEffect(() => {
@@ -85,13 +104,13 @@ export default function HomePage() {
               <CompanyGrid
                 companies={companies}
                 onDelete={(id) => setDeletedId(id)}
-                onEdit={() => {}}
+                onEdit={handleOpenEdit}
               />
             ) : (
               <CompanyTable
                 companies={companies}
                 onDelete={(id) => setDeletedId(id)}
-                onEdit={() => {}}
+                onEdit={handleOpenEdit}
               />
             )}
           </>
@@ -100,7 +119,8 @@ export default function HomePage() {
       <CompanyDialogForm
         open={isDialogOpen}
         onOpenChange={() => setIsDialogOpen(false)}
-        onSubmit={handleSubmit}
+        onSubmit={editingCompany ? handleEditCompany : handleSubmit}
+        editingCompany={editingCompany}
       />
       <CompanyDialogDelete
         open={!!deletedId}
