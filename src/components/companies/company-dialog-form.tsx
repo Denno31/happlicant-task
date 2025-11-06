@@ -20,12 +20,14 @@ import {
   TrendingUp,
   User,
   Users,
+  X,
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "../ui/button";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Badge } from "../ui/badge";
 
 interface CompanyDialogFormProps {
   open: boolean;
@@ -45,6 +47,7 @@ const companyFormSchema = z.object({
   employee_count: z.string().optional(),
   founded: z.string().optional(),
   ceo_name: z.string().optional(),
+  sectors: z.string().optional(),
 });
 
 type CompanyFormValues = z.infer<typeof companyFormSchema>;
@@ -55,6 +58,9 @@ export default function CompanyDialogForm({
   editingCompany,
   onSubmit,
 }: CompanyDialogFormProps) {
+  const [sectors, setSectors] = useState<string[]>([]);
+  const [sectorInput, setSectorInput] = useState("");
+
   const form = useForm<CompanyFormValues>({
     defaultValues: {
       name: "",
@@ -67,6 +73,7 @@ export default function CompanyDialogForm({
       founded: "",
       ceo_name: "",
       logo_url: "",
+      sectors: "",
     },
   });
 
@@ -83,7 +90,13 @@ export default function CompanyDialogForm({
               country: values.country || undefined,
             }
           : undefined,
-      industry: values.industry || undefined,
+      industry:
+        values.industry && sectors.length > 0
+          ? {
+              primary: values.industry,
+              sectors: sectors,
+            }
+          : values.industry || undefined,
       employee_count: values.employee_count
         ? parseInt(values.employee_count, 10)
         : undefined,
@@ -92,6 +105,8 @@ export default function CompanyDialogForm({
     };
     onSubmit(company);
     form.reset();
+    setSectors([]);
+    setSectorInput("");
     onOpenChange(false);
   };
 
@@ -105,6 +120,11 @@ export default function CompanyDialogForm({
         typeof editingCompany.ceo === "string"
           ? editingCompany.ceo
           : editingCompany.ceo?.name || "";
+      const industryData =
+        typeof editingCompany.industry === "object"
+          ? editingCompany.industry
+          : null;
+      
       form.reset({
         name: editingCompany.name || "",
         description: editingCompany.description || "",
@@ -119,7 +139,10 @@ export default function CompanyDialogForm({
         employee_count: editingCompany.employee_count?.toString() || "",
         founded: editingCompany.founded?.toString() || "",
         ceo_name: ceoName,
+        sectors: "",
       });
+      setSectors(industryData?.sectors || []);
+      setSectorInput("");
     } else {
       form.reset({
         name: "",
@@ -132,7 +155,10 @@ export default function CompanyDialogForm({
         employee_count: "",
         founded: "",
         ceo_name: "",
+        sectors: "",
       });
+      setSectors([]);
+      setSectorInput("");
     }
   }, [editingCompany, form]);
 
@@ -236,6 +262,69 @@ export default function CompanyDialogForm({
                     </FormItem>
                   )}
                 />
+              </div>
+              
+              <div className="space-y-2">
+                <FormLabel className="flex items-center gap-2">
+                  <TrendingUp className="h-4 w-4 text-purple-600" />
+                  Industry Sectors
+                </FormLabel>
+                <div className="space-y-2">
+                  <div className="flex gap-2">
+                    <Input
+                      placeholder="Add a sector (e.g., Cloud Computing)"
+                      value={sectorInput}
+                      onChange={(e) => setSectorInput(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          if (sectorInput.trim() && !sectors.includes(sectorInput.trim())) {
+                            setSectors([...sectors, sectorInput.trim()]);
+                            setSectorInput("");
+                          }
+                        }
+                      }}
+                      className="flex-1"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        if (sectorInput.trim() && !sectors.includes(sectorInput.trim())) {
+                          setSectors([...sectors, sectorInput.trim()]);
+                          setSectorInput("");
+                        }
+                      }}
+                      className="border-pink-200 text-pink-600 hover:bg-pink-50"
+                    >
+                      <Plus className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  {sectors.length > 0 && (
+                    <div className="flex flex-wrap gap-2 rounded-lg border border-gray-200 bg-gray-50 p-3">
+                      {sectors.map((sector, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className="gap-1 border-gray-300 bg-white px-2 py-1 text-sm"
+                        >
+                          {sector}
+                          <button
+                            type="button"
+                            onClick={() => setSectors(sectors.filter((_, i) => i !== index))}
+                            className="ml-1 rounded-full hover:bg-gray-200"
+                          >
+                            <X className="h-3 w-3" />
+                          </button>
+                        </Badge>
+                      ))}
+                    </div>
+                  )}
+                  <p className="text-xs text-gray-500">
+                    Type a sector and press Enter or click + to add
+                  </p>
+                </div>
               </div>
             </div>
             <div className="space-y-4">
