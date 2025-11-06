@@ -10,6 +10,7 @@ import CompanyGrid from "@/components/companies/company-grid";
 import CompanyTable from "@/components/companies/company-table";
 import CompanyDialogForm from "@/components/companies/company-dialog-form";
 import { CompanyDialogDelete } from "@/components/companies/company-dialog-delete";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function HomePage() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -18,6 +19,16 @@ export default function HomePage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deletedId, setDeletedId] = useState<string | null>(null);
   const [editingCompany, setEditingCompany] = useState<Company | null>(null);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+
+  const filteredCompanies = companies.filter((company) => {
+    return company.name
+      .toLowerCase()
+      .includes(searchQuery?.toLowerCase() || "");
+  });
 
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
@@ -74,6 +85,17 @@ export default function HomePage() {
     setIsDialogOpen(true);
   };
 
+  const handleSearchChange = (query: string) => {
+    setSearchQuery(query);
+    const searchParams = new URLSearchParams(window.location.search);
+    if (query) {
+      searchParams.set("q", query);
+    } else {
+      searchParams.delete("q");
+    }
+    router.replace(`?${searchParams.toString()}`);
+  };
+
   useEffect(() => {
     if (!isLoading)
       localStorage.setItem("companies", JSON.stringify(companies));
@@ -90,9 +112,9 @@ export default function HomePage() {
           viewMode={viewMode}
           onViewChange={handleViewChange}
           onAdd={handleOpenDialog}
-          onSearchChange={() => {}}
+          onSearchChange={handleSearchChange}
           onSortChange={() => {}}
-          searchQuery=""
+          searchQuery={searchQuery}
           sortBy=""
         />
         {companies.length === 0 ? (

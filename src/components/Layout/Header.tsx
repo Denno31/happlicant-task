@@ -10,6 +10,7 @@ import {
 import Logo from "../common/logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useSearchParams } from "next/navigation";
 
 interface HeaderProps {
   viewMode: "grid" | "table";
@@ -39,6 +40,9 @@ export default function Header({
   searchQuery,
   sortBy,
 }: HeaderProps) {
+  //lets use url search params to set search query
+  const searchParams = useSearchParams();
+
   return (
     <div className="sticky top-0 z-30 mb-6 border-b border-gray-200 bg-white shadow-md">
       <div className="border-b border-gray-200">
