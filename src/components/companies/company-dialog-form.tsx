@@ -138,7 +138,7 @@ export default function CompanyDialogForm({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-gray-900">
             {editingCompany ? "Edit Company" : "Add New Company"}
