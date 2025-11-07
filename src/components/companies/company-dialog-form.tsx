@@ -24,6 +24,7 @@ import {
 } from "lucide-react";
 import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
@@ -62,6 +63,7 @@ export default function CompanyDialogForm({
   const [sectorInput, setSectorInput] = useState("");
 
   const form = useForm<CompanyFormValues>({
+    resolver: zodResolver(companyFormSchema),
     defaultValues: {
       name: "",
       description: "",
@@ -181,7 +183,7 @@ export default function CompanyDialogForm({
             className="space-y-6"
           >
             <div className="space-y-4 rounded-lg bg-gradient-to-r from-pink-50/50 to-purple-50/50 p-4">
-              <div className="flex items-center gap-2 pb-2 border-b-2 border-pink-200">
+              <div className="flex items-center gap-2 border-b-2 border-pink-200 pb-2">
                 <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-pink-600">
                   <Sparkles className="h-3.5 w-3.5 text-white" />
                 </div>
@@ -340,13 +342,11 @@ export default function CompanyDialogForm({
               </div>
             </div>
             <div className="space-y-4 rounded-lg bg-gradient-to-r from-blue-50/50 to-cyan-50/50 p-4">
-              <div className="flex items-center gap-2 pb-2 border-b-2 border-blue-200">
+              <div className="flex items-center gap-2 border-b-2 border-blue-200 pb-2">
                 <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-600">
                   <MapPin className="h-3.5 w-3.5 text-white" />
                 </div>
-                <h3 className="text-sm font-bold text-gray-800">
-                  Location
-                </h3>
+                <h3 className="text-sm font-bold text-gray-800">Location</h3>
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
@@ -382,7 +382,7 @@ export default function CompanyDialogForm({
               </div>
             </div>
             <div className="space-y-4 rounded-lg bg-gradient-to-r from-purple-50/50 to-pink-50/50 p-4">
-              <div className="flex items-center gap-2 pb-2 border-b-2 border-purple-200">
+              <div className="flex items-center gap-2 border-b-2 border-purple-200 pb-2">
                 <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-purple-500 to-purple-600">
                   <Users className="h-3.5 w-3.5 text-white" />
                 </div>
@@ -486,7 +486,7 @@ export default function CompanyDialogForm({
               </Button>
               <Button
                 type="submit"
-                className="group h-9 gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/30 hover:scale-105"
+                className="group h-9 gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
               >
                 {editingCompany ? (
                   <>
