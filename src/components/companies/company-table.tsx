@@ -2,7 +2,7 @@
 
 import { type Company } from "@/types/company";
 import Link from "next/link";
-import { formatLocation } from "@/lib/format-company";
+import { formatLocation } from "@/lib/company-helpers";
 
 import {
   Table,

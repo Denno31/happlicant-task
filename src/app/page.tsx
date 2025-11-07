@@ -3,7 +3,6 @@ import { useMemo, useState } from "react";
 import { useEffect } from "react";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";
-import dummyData from "@/../dummyData.json";
 import { EmptyState } from "@/components/companies/empty-state";
 import CompanyGrid from "@/components/companies/company-grid";
 import CompanyTable from "@/components/companies/company-table";
@@ -12,10 +11,11 @@ import { CompanyDialogDelete } from "@/components/companies/company-dialog-delet
 import { useRouter, useSearchParams } from "next/navigation";
 import { HomeLoadingState } from "@/components/companies/home-loading-state";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { useCompaniesStorage } from "@/hooks/use-companies-storage";
+import { filteredCompanies, sortedCompanies } from "@/lib/company-helpers";
 
 export default function HomePage() {
-  const [companies, setCompanies] = useState<Company[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { companies, setCompanies, isLoading } = useCompaniesStorage();
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [deletedId, setDeletedId] = useState<string | null>(null);
@@ -25,23 +25,6 @@ export default function HomePage() {
   const searchParams = useSearchParams();
 
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
-
-  const filteredCompanies = companies.filter((company) => {
-    return company.name
-      .toLowerCase()
-      .includes(searchQuery?.toLowerCase() || "");
-  });
-
-  useEffect(() => {
-    const storedCompanies = localStorage.getItem("companies");
-    if (storedCompanies) {
-      setCompanies(JSON.parse(storedCompanies));
-    } else {
-      setCompanies(dummyData as Company[]);
-      localStorage.setItem("companies", JSON.stringify(dummyData));
-    }
-    setIsLoading(false);
-  }, []);
 
   const handleViewChange = (mode: "grid" | "table") => {
     setViewMode(mode);
@@ -104,45 +87,8 @@ export default function HomePage() {
   }, [companies, isLoading]);
 
   const filteredAndSortedCompanies = useMemo(() => {
-    let filtered = companies;
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase();
-      filtered = companies.filter((company) => {
-        const name = company.name.toLowerCase();
-        const industry =
-          typeof company.industry === "string"
-            ? company.industry.toLowerCase()
-            : company.industry?.primary.toLowerCase() || "";
-        const location =
-          typeof company.location === "string"
-            ? company.location.toLowerCase()
-            : `${company.location?.city || ""} ${company.location?.country || ""}`.toLowerCase();
-
-        return (
-          name.includes(query) ||
-          industry.includes(query) ||
-          location.includes(query)
-        );
-      });
-    }
-    const sorted = [...filtered].sort((a, b) => {
-      switch (sortBy) {
-        case "name-asc":
-          return a.name.localeCompare(b.name);
-        case "name-desc":
-          return b.name.localeCompare(a.name);
-        case "employees-asc":
-          return (a.employee_count || 0) - (b.employee_count || 0);
-        case "employees-desc":
-          return (b.employee_count || 0) - (a.employee_count || 0);
-        case "founded-asc":
-          return (a.founded || 9999) - (b.founded || 9999);
-        case "founded-desc":
-          return (b.founded || 0) - (a.founded || 0);
-        default:
-          return 0;
-      }
-    });
+    const filtered = filteredCompanies(companies, searchQuery);
+    const sorted = sortedCompanies(filtered, sortBy);
     return sorted;
   }, [companies, searchQuery, sortBy]);
 

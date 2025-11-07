@@ -5,7 +5,7 @@ import IndustryTag from "./industry-tag";
 import { useState } from "react";
 import CompanyCardActionMenu from "./companies-card-action-menu";
 import Link from "next/link";
-import { formatLocation } from "@/lib/format-company";
+import { formatLocation } from "@/lib/company-helpers";
 
 interface CompanyCardProps {
   company: Company;

@@ -1,5 +1,5 @@
 import type { Company } from "@/types/company";
-import { formatIndustry } from "@/lib/format-company";
+import { formatIndustry } from "@/lib/company-helpers";
 
 interface IndustryTagProps {
   industry: Company["industry"];

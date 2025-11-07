@@ -20,7 +20,7 @@ import { use, useEffect, useState } from "react";
 import type { Company } from "@/types/company";
 import IndustryTag from "@/components/companies/industry-tag";
 import { CompanyDetailsLoading } from "@/components/companies/company-details-loading";
-import { formatLocation, getFormattedCEOText } from "@/lib/format-company";
+import { formatLocation, getFormattedCEOText } from "@/lib/company-helpers";
 
 interface CompanyDetailsPageProps {
   params: Promise<{
