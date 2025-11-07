@@ -1,5 +1,5 @@
 "use client";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { MainLayout } from "@/components/main-layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";

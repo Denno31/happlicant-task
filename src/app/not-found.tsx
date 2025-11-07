@@ -1,5 +1,6 @@
 "use client";
-import { MainLayout } from "@/components/layout/MainLayout";
+
+import { MainLayout } from "@/components/main-layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, Search, AlertCircle } from "lucide-react";
@@ -21,8 +22,8 @@ export default function NotFound() {
                   Page Not Found
                 </h2>
                 <p className="mx-auto max-w-md text-sm text-gray-600">
-                  Sorry, we couldn&apos;t find the page you&apos;re looking for. It might
-                  have been moved or doesn&apos;t exist.
+                  Sorry, we couldn&apos;t find the page you&apos;re looking for.
+                  It might have been moved or doesn&apos;t exist.
                 </p>
               </div>
               <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-center">

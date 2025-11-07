@@ -1,5 +1,5 @@
 "use client";
-import { MainLayout } from "@/components/layout/MainLayout";
+import { MainLayout } from "@/components/main-layout/MainLayout";
 import CompanyHomePageContent from "@/components/companies/company-home-content";
 
 export default function HomePage() {
