@@ -11,6 +11,7 @@ import CompanyGrid from "./company-grid";
 import CompanyStats from "./company-stats";
 import { EmptyState } from "./empty-state";
 import { HomeLoadingState } from "./home-loading-state";
+import { toast } from "sonner";
 
 export default function CompanyHomePageContent() {
   const {
@@ -55,10 +56,27 @@ export default function CompanyHomePageContent() {
 
   const handleDelete = () => {
     if (deletedId) {
+      const deletedCompany = companies.find((c) => c.id === deletedId);
       setCompanies((prev) =>
         prev.filter((company) => company.id !== deletedId),
       );
       setDeletedId(null);
+      
+      // Show success toast
+      toast.success(
+        deletedCompany?.name 
+          ? `${deletedCompany.name} deleted!`
+          : "Company deleted!",
+        {
+          description: "The company has been permanently removed from your portfolio.",
+          className: "border-l-4 border-l-green-500",
+          descriptionClassName: "!text-gray-900 font-medium",
+          style: {
+            backgroundColor: "#ffffff",
+            color: "#111827",
+          },
+        }
+      );
     }
   };
 
