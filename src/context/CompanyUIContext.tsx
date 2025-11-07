@@ -1,7 +1,7 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { createContext, useState, useContext, useCallback } from "react";
+import { createContext, useState, useContext, useCallback, Suspense } from "react";
 
 type CompanyUIContextType = {
   viewMode: "grid" | "table";
@@ -18,11 +18,11 @@ type CompanyUIContextType = {
 
 const CompanyUIContext = createContext<CompanyUIContextType | null>(null);
 
-export const CompanyUIProvider = ({
+function CompanyUIProviderContent({
   children,
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
@@ -65,6 +65,18 @@ export const CompanyUIProvider = ({
     >
       {children}
     </CompanyUIContext.Provider>
+  );
+}
+
+export const CompanyUIProvider = ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
+  return (
+    <Suspense fallback={null}>
+      <CompanyUIProviderContent>{children}</CompanyUIProviderContent>
+    </Suspense>
   );
 };
 
