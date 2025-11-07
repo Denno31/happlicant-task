@@ -91,37 +91,41 @@ export default function CompanyCard({
             </div>
           )}
 
-        <div className="space-y-2.5 border-t border-gray-100 pt-3">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
-              <MapPin className="h-3.5 w-3.5 text-pink-600" />
-            </div>
-            <span className="truncate text-sm text-gray-700">
-              {formatLocation(company.location)}
-            </span>
-          </div>
+        {(company.location || company.employee_count || company.founded) && (
+          <div className="space-y-2.5 border-t border-gray-100 pt-3">
+            {company.location && (
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
+                  <MapPin className="h-3.5 w-3.5 text-pink-600" />
+                </div>
+                <span className="truncate text-sm text-gray-700">
+                  {formatLocation(company.location)}
+                </span>
+              </div>
+            )}
 
-          {company.employee_count && (
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
-                <Users className="h-3.5 w-3.5 text-pink-600" />
+            {company.employee_count && (
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
+                  <Users className="h-3.5 w-3.5 text-pink-600" />
+                </div>
+                <span className="text-sm text-gray-700">
+                  {company.employee_count.toLocaleString()} employees
+                </span>
               </div>
-              <span className="text-sm text-gray-700">
-                {company.employee_count.toLocaleString()} employees
-              </span>
-            </div>
-          )}
-          {company.founded && (
-            <div className="flex items-center gap-2.5">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
-                <Calendar className="h-3.5 w-3.5 text-pink-600" />
+            )}
+            {company.founded && (
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-7 w-7 items-center justify-center rounded-md bg-pink-50">
+                  <Calendar className="h-3.5 w-3.5 text-pink-600" />
+                </div>
+                <span className="text-sm text-gray-700">
+                  Founded {company.founded}
+                </span>
               </div>
-              <span className="text-sm text-gray-700">
-                Founded {company.founded}
-              </span>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
