@@ -7,14 +7,18 @@ export function useCompaniesStorage() {
     const [companies, setCompanies] = useState<Company[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     useEffect(() => {
-        const storedCompanies = localStorage.getItem("companies");
-        if (storedCompanies) {
-            setCompanies(JSON.parse(storedCompanies) as Company[]);
-        } else {
-            setCompanies(dummyData as Company[]);
-            localStorage.setItem("companies", JSON.stringify(dummyData));
-        }
-        setIsLoading(false);
+        const timer = setTimeout(() => {
+            const storedCompanies = localStorage.getItem("companies");
+            if (storedCompanies) {
+                setCompanies(JSON.parse(storedCompanies) as Company[]);
+            } else {
+                setCompanies(dummyData as Company[]);
+                localStorage.setItem("companies", JSON.stringify(dummyData));
+            }
+            setIsLoading(false);
+        }, 1000);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return {
