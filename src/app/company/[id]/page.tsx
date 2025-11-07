@@ -38,41 +38,31 @@ export default function CompanyDetailsPage({
   const { id } = use(params);
 
   useEffect(() => {
-    const storedCompanies = localStorage.getItem("companies");
-    if (storedCompanies) {
-      const companies = JSON.parse(storedCompanies) as Company[];
-      const foundCompany = companies.find((c) => c.id === id);
-      setCompany(foundCompany || null);
-    }
-    setLoading(false);
+    const timer = setTimeout(() => {
+      const storedCompanies = localStorage.getItem("companies");
+
+      if (storedCompanies) {
+        const companies = JSON.parse(storedCompanies) as Company[];
+        const foundCompany = companies.find((c) => c.id === id);
+        setCompany(foundCompany || null);
+      }
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, [id]);
+
+  if (loading) {
+    return (
+      <MainLayout isHomePage={false}>
+        <CompanyDetailsLoading />
+      </MainLayout>
+    );
+  }
 
   if (!company) {
     return (
       <MainLayout isHomePage={false}>
-        {!company && (
-          <div className="space-y-6">
-            <Button
-              variant="ghost"
-              onClick={() => router.back()}
-              className="group gap-2 text-gray-600 hover:text-gray-900"
-            >
-              <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
-              Back
-            </Button>
-            <Card className="border-gray-200">
-              <CardContent className="flex flex-col items-center justify-center py-12">
-                <Sparkles className="mb-4 h-16 w-16 text-gray-300" />
-                <p className="text-lg font-semibold text-gray-900">
-                  Company not found
-                </p>
-                <p className="mt-1 text-sm text-gray-500">
-                  The company you&apos;re looking for doesn&apos;t exist.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        )}
         <div className="space-y-6">
           <Button
             variant="ghost"
@@ -102,7 +92,6 @@ export default function CompanyDetailsPage({
 
   return (
     <MainLayout isHomePage={false}>
-      {loading && <CompanyDetailsLoading />}
       <div className="space-y-6">
         <Button
           variant="ghost"
@@ -112,7 +101,6 @@ export default function CompanyDetailsPage({
           <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
           Back
         </Button>
-
         <Card className="border-gray-200 transition-all hover:border-pink-200 hover:shadow-md">
           <CardContent className="p-6">
             <div className="flex flex-col gap-6 md:flex-row md:items-start">

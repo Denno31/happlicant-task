@@ -13,6 +13,7 @@ import {
   Calendar,
   FileText,
   Globe,
+  Loader2,
   MapPin,
   Plus,
   Save,
@@ -29,6 +30,7 @@ import { z } from "zod";
 import { Button } from "../ui/button";
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
+import { toast } from "sonner";
 
 interface CompanyDialogFormProps {
   open: boolean;
@@ -63,6 +65,7 @@ export default function CompanyDialogForm({
 }: CompanyDialogFormProps) {
   const [sectors, setSectors] = useState<string[]>([]);
   const [sectorInput, setSectorInput] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const form = useForm<CompanyFormValues>({
     resolver: zodResolver(companyFormSchema),
@@ -84,44 +87,65 @@ export default function CompanyDialogForm({
   });
 
   const handleFormSubmit = (values: CompanyFormValues) => {
-    const company: Omit<Company, "id"> = {
-      name: values.name,
-      description: values.description ?? undefined,
-      logo_url: values.logo_url ?? undefined,
-      website: values.website ?? undefined,
-      location:
-        values.city || values.country
+    setIsSubmitting(true);
+
+    // Simulate API delay
+    setTimeout(() => {
+      const company: Omit<Company, "id"> = {
+        name: values.name,
+        description: values.description ?? undefined,
+        logo_url: values.logo_url ?? undefined,
+        website: values.website ?? undefined,
+        location:
+          values.city || values.country
+            ? {
+                city: values.city || undefined,
+                country: values.country || undefined,
+              }
+            : undefined,
+        industry:
+          values.industry && sectors.length > 0
+            ? {
+                primary: values.industry,
+                sectors: sectors,
+              }
+            : values.industry || undefined,
+        employee_count: values.employee_count
+          ? parseInt(values.employee_count, 10)
+          : undefined,
+        founded: values.founded ? parseInt(values.founded, 10) : undefined,
+        ceo: values.ceo_name
           ? {
-              city: values.city || undefined,
-              country: values.country || undefined,
+              name: values.ceo_name,
+              since: values.ceo_since
+                ? parseInt(values.ceo_since, 10)
+                : undefined,
+              bio: values.ceo_bio || undefined,
             }
           : undefined,
-      industry:
-        values.industry && sectors.length > 0
-          ? {
-              primary: values.industry,
-              sectors: sectors,
-            }
-          : values.industry || undefined,
-      employee_count: values.employee_count
-        ? parseInt(values.employee_count, 10)
-        : undefined,
-      founded: values.founded ? parseInt(values.founded, 10) : undefined,
-      ceo: values.ceo_name
-        ? {
-            name: values.ceo_name,
-            since: values.ceo_since
-              ? parseInt(values.ceo_since, 10)
-              : undefined,
-            bio: values.ceo_bio || undefined,
-          }
-        : undefined,
-    };
-    onSubmit(company);
-    form.reset();
-    setSectors([]);
-    setSectorInput("");
-    onOpenChange(false);
+      };
+      onSubmit(company);
+      form.reset();
+      setSectors([]);
+      setSectorInput("");
+      setIsSubmitting(false);
+      onOpenChange(false);
+
+      toast.success(
+        editingCompany ? `${company.name} updated!` : `${company.name} added!`,
+        {
+          description: editingCompany
+            ? "Your changes have been saved successfully."
+            : "The company has been added to your portfolio.",
+          className: "border-l-4 border-l-green-500",
+          descriptionClassName: "!text-gray-900 font-medium",
+          style: {
+            backgroundColor: "#ffffff",
+            color: "#111827",
+          },
+        },
+      );
+    }, 800);
   };
 
   useEffect(() => {
@@ -547,15 +571,22 @@ export default function CompanyDialogForm({
                 type="button"
                 variant="outline"
                 onClick={() => onOpenChange(false)}
+                disabled={isSubmitting}
                 className="border-gray-300 text-gray-700 hover:bg-gray-50"
               >
                 Cancel
               </Button>
               <Button
                 type="submit"
-                className="group h-9 gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30"
+                disabled={isSubmitting}
+                className="group h-9 gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
               >
-                {editingCompany ? (
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    {editingCompany ? "Saving..." : "Adding..."}
+                  </>
+                ) : editingCompany ? (
                   <>
                     <Save className="h-4 w-4" />
                     Save Changes
