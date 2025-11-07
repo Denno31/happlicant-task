@@ -9,7 +9,7 @@ export function useCompaniesStorage() {
     useEffect(() => {
         const storedCompanies = localStorage.getItem("companies");
         if (storedCompanies) {
-            setCompanies(JSON.parse(storedCompanies));
+            setCompanies(JSON.parse(storedCompanies) as Company[]);
         } else {
             setCompanies(dummyData as Company[]);
             localStorage.setItem("companies", JSON.stringify(dummyData));

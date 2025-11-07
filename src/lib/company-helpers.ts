@@ -9,7 +9,7 @@ export function formatLocation(
     fallback?: string;
   },
 ): string {
-  const { includeAddress = false, includeZipCode = false, fallback = "N/A" } = options || {};
+  const { includeAddress = false, includeZipCode = false, fallback = "N/A" } = options ?? {};
 
   if (!location) return fallback;
   if (typeof location === "string") return location;

@@ -86,9 +86,9 @@ export default function CompanyDialogForm({
   const handleFormSubmit = (values: CompanyFormValues) => {
     const company: Omit<Company, "id"> = {
       name: values.name,
-      description: values.description || undefined,
-      logo_url: values.logo_url || undefined,
-      website: values.website || undefined,
+      description: values.description ?? undefined,
+      logo_url: values.logo_url ?? undefined,
+      website: values.website ?? undefined,
       location:
         values.city || values.country
           ? {
@@ -107,14 +107,15 @@ export default function CompanyDialogForm({
         ? parseInt(values.employee_count, 10)
         : undefined,
       founded: values.founded ? parseInt(values.founded, 10) : undefined,
-      ceo:
-        values.ceo_name
-          ? {
-              name: values.ceo_name,
-              since: values.ceo_since ? parseInt(values.ceo_since, 10) : undefined,
-              bio: values.ceo_bio || undefined,
-            }
-          : undefined,
+      ceo: values.ceo_name
+        ? {
+            name: values.ceo_name,
+            since: values.ceo_since
+              ? parseInt(values.ceo_since, 10)
+              : undefined,
+            bio: values.ceo_bio || undefined,
+          }
+        : undefined,
     };
     onSubmit(company);
     form.reset();
@@ -140,11 +141,11 @@ export default function CompanyDialogForm({
 
       form.reset({
         name: editingCompany.name || "",
-        description: editingCompany.description || "",
-        logo_url: editingCompany.logo_url || "",
-        website: editingCompany.website || "",
-        city: location.city || "",
-        country: location.country || "",
+        description: editingCompany.description ?? "",
+        logo_url: editingCompany.logo_url ?? "",
+        website: editingCompany.website ?? "",
+        city: location.city ?? "",
+        country: location.country ?? "",
         industry:
           typeof editingCompany.industry === "string"
             ? editingCompany.industry
