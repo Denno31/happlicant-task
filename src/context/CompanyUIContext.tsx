@@ -1,5 +1,6 @@
 "use client";
 
+import { useSearchParams } from "next/navigation";
 import { createContext, useState, useContext, useCallback } from "react";
 
 type CompanyUIContextType = {
@@ -22,8 +23,9 @@ export const CompanyUIProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
+  const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
   const [sortBy, setSortBy] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
