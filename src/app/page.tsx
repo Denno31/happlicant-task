@@ -113,7 +113,7 @@ export default function HomePage() {
       {isLoading ? (
         <HomeLoadingState viewMode={viewMode} />
       ) : companies.length === 0 ? (
-        <EmptyState onAdd={() => {}} />
+        <EmptyState onAdd={handleOpenDialog} />
       ) : (
         <>
           <CompanyStats companies={companies} />{" "}
