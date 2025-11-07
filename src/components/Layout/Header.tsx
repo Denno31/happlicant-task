@@ -1,23 +1,11 @@
 "use client";
-import {
-  ArrowUpDown,
-  LayoutGrid,
-  List,
-  Plus,
-  Search,
-} from "lucide-react";
+import { ArrowUpDown, LayoutGrid, List, Plus, Search } from "lucide-react";
 import Logo from "../common/logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { useCompanyUI } from "@/context/CompanyUIContext";
 
 interface HeaderProps {
-  viewMode: "grid" | "table";
-  onViewChange: (mode: "grid" | "table") => void;
-  onAdd: () => void;
-  onSearchChange: (query: string) => void;
-  onSortChange: (sort: string) => void;
-  searchQuery: string;
-  sortBy: string;
   isHomePage?: boolean;
 }
 
@@ -30,16 +18,16 @@ const sortOptions = [
   { value: "founded-asc", label: "Oldest" },
 ];
 
-export default function Header({
-  viewMode,
-  onViewChange,
-  onAdd,
-  onSearchChange,
-  onSortChange,
-  searchQuery,
-  sortBy,
-  isHomePage,
-}: HeaderProps) {
+export default function Header({ isHomePage }: HeaderProps) {
+  const {
+    viewMode,
+    onViewChange,
+    onAdd,
+    onSearchChange,
+    onSortChange,
+    searchQuery,
+    sortBy,
+  } = useCompanyUI();
   return (
     <div className="sticky top-0 z-30 mb-6 border-b border-gray-200 bg-white shadow-md">
       <div className="border-b border-gray-200">

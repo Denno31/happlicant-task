@@ -49,16 +49,7 @@ export default function CompanyDetailsPage({
 
   if (!company) {
     return (
-      <MainLayout
-        isHomePage={false}
-        viewMode={"table"}
-        handleViewChange={() => {}}
-        handleOpenDialog={() => {}}
-        handleSearchChange={() => {}}
-        setSortBy={() => {}}
-        searchQuery={""}
-        sortBy={""}
-      >
+      <MainLayout isHomePage={false}>
         {!company && (
           <div className="space-y-6">
             <Button
@@ -110,16 +101,7 @@ export default function CompanyDetailsPage({
   const ceoInfo = getFormattedCEOText(company.ceo);
 
   return (
-    <MainLayout
-      isHomePage={false}
-      viewMode={"table"}
-      handleViewChange={() => {}}
-      handleOpenDialog={() => {}}
-      handleSearchChange={() => {}}
-      setSortBy={() => {}}
-      searchQuery={""}
-      sortBy={""}
-    >
+    <MainLayout isHomePage={false}>
       {loading && <CompanyDetailsLoading />}
       <div className="space-y-6">
         <Button
