@@ -48,6 +48,8 @@ const companyFormSchema = z.object({
   employee_count: z.string().optional(),
   founded: z.string().optional(),
   ceo_name: z.string().optional(),
+  ceo_since: z.string().optional(),
+  ceo_bio: z.string().optional(),
   sectors: z.string().optional(),
 });
 
@@ -74,6 +76,8 @@ export default function CompanyDialogForm({
       employee_count: "",
       founded: "",
       ceo_name: "",
+      ceo_since: "",
+      ceo_bio: "",
       logo_url: "",
       sectors: "",
     },
@@ -103,7 +107,14 @@ export default function CompanyDialogForm({
         ? parseInt(values.employee_count, 10)
         : undefined,
       founded: values.founded ? parseInt(values.founded, 10) : undefined,
-      ceo: values.ceo_name || undefined,
+      ceo:
+        values.ceo_name
+          ? {
+              name: values.ceo_name,
+              since: values.ceo_since ? parseInt(values.ceo_since, 10) : undefined,
+              bio: values.ceo_bio || undefined,
+            }
+          : undefined,
     };
     onSubmit(company);
     form.reset();
@@ -141,6 +152,14 @@ export default function CompanyDialogForm({
         employee_count: editingCompany.employee_count?.toString() || "",
         founded: editingCompany.founded?.toString() || "",
         ceo_name: ceoName,
+        ceo_since:
+          typeof editingCompany.ceo === "object"
+            ? editingCompany.ceo.since?.toString() || ""
+            : "",
+        ceo_bio:
+          typeof editingCompany.ceo === "object"
+            ? editingCompany.ceo.bio || ""
+            : "",
         sectors: "",
       });
       setSectors(industryData?.sectors || []);
@@ -157,6 +176,8 @@ export default function CompanyDialogForm({
         employee_count: "",
         founded: "",
         ceo_name: "",
+        ceo_since: "",
+        ceo_bio: "",
         sectors: "",
       });
       setSectors([]);
@@ -397,8 +418,8 @@ export default function CompanyDialogForm({
                   name="employee_count"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Users className="h-4 w-4 text-blue-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <Users className="h-3.5 w-3.5 text-gray-500" />
                         Employee Count
                       </FormLabel>
                       <FormControl>
@@ -418,8 +439,8 @@ export default function CompanyDialogForm({
                   name="founded"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-orange-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <Calendar className="h-3.5 w-3.5 text-gray-500" />
                         Founded Year
                       </FormLabel>
                       <FormControl>
@@ -442,8 +463,8 @@ export default function CompanyDialogForm({
                   name="ceo_name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <User className="h-4 w-4 text-indigo-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <User className="h-3.5 w-3.5 text-gray-500" />
                         CEO Name
                       </FormLabel>
                       <FormControl>
@@ -455,11 +476,56 @@ export default function CompanyDialogForm({
                 />
                 <FormField
                   control={form.control}
+                  name="ceo_since"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <Calendar className="h-3.5 w-3.5 text-gray-500" />
+                        CEO Since
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          placeholder="e.g., 2014"
+                          min="1900"
+                          max={new Date().getFullYear()}
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <FormField
+                control={form.control}
+                name="ceo_bio"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <User className="h-3.5 w-3.5 text-gray-500" />
+                      CEO Bio
+                    </FormLabel>
+                    <FormControl>
+                      <textarea
+                        placeholder="Brief biography of the CEO..."
+                        rows={3}
+                        className="w-full resize-none rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm transition-colors focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <FormField
+                  control={form.control}
                   name="logo_url"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Sparkles className="h-4 w-4 text-pink-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <Sparkles className="h-3.5 w-3.5 text-gray-500" />
                         Logo URL
                       </FormLabel>
                       <FormControl>
