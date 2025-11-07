@@ -1,6 +1,6 @@
 "use client";
 import { ArrowUpDown, LayoutGrid, List, Plus, Search } from "lucide-react";
-import Logo from "../common/logo";
+import Logo from "../common/app-logo";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { useCompanyUI } from "@/context/CompanyUIContext";
