@@ -7,15 +7,7 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <MainLayout
-      viewMode="grid"
-      handleViewChange={() => {}}
-      handleOpenDialog={() => {}}
-      handleSearchChange={() => {}}
-      setSortBy={() => {}}
-      searchQuery=""
-      sortBy=""
-    >
+    <MainLayout isHomePage={false}>
       <div className="flex min-h-[70vh] items-center justify-center px-4">
         <Card className="w-full max-w-2xl border-gray-200 shadow-lg">
           <CardContent className="p-8 sm:p-12">
