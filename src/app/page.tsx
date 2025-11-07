@@ -1,5 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useEffect } from "react";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";
@@ -72,14 +72,21 @@ export default function HomePage() {
 
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
-    const searchParams = new URLSearchParams(window.location.search);
-    if (query) {
-      searchParams.set("q", query);
-    } else {
-      searchParams.delete("q");
-    }
-    router.replace(`?${searchParams.toString()}`);
   };
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      const params = new URLSearchParams(window.location.search);
+      if (searchQuery) {
+        params.set("q", searchQuery);
+      } else {
+        params.delete("q");
+      }
+      router.replace(`?${params.toString()}`);
+    }, 400);
+
+    return () => clearTimeout(handler);
+  }, [searchQuery, router]);
 
   useEffect(() => {
     if (!isLoading)
