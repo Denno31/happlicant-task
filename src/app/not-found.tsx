@@ -20,12 +20,9 @@ export default function NotFound() {
         <Card className="w-full max-w-2xl border-gray-200 shadow-lg">
           <CardContent className="p-8 sm:p-12">
             <div className="space-y-6 text-center">
-              {/* Icon */}
               <div className="mx-auto flex h-24 w-24 items-center justify-center rounded-2xl border-2 border-pink-200 bg-gradient-to-br from-pink-50 to-pink-100">
                 <AlertCircle className="h-12 w-12 text-pink-600" />
               </div>
-
-              {/* Title */}
               <div className="space-y-2">
                 <h1 className="text-6xl font-bold text-gray-900">404</h1>
                 <h2 className="text-2xl font-semibold text-gray-800">
@@ -36,8 +33,6 @@ export default function NotFound() {
                   have been moved or doesn't exist.
                 </p>
               </div>
-
-              {/* Actions */}
               <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-center">
                 <Link href="/">
                   <Button className="group h-10 w-full gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 px-6 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:scale-105 hover:shadow-lg hover:shadow-pink-500/30 sm:w-auto">
@@ -55,8 +50,6 @@ export default function NotFound() {
                   </Button>
                 </Link>
               </div>
-
-              {/* Additional Help */}
               <div className="border-t border-gray-100 pt-6">
                 <p className="text-xs text-gray-500">
                   If you believe this is an error, please try refreshing the
