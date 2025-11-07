@@ -11,6 +11,7 @@ import CompanyGrid from "./company-grid";
 import CompanyStats from "./company-stats";
 import { EmptyState } from "./empty-state";
 import { HomeLoadingState } from "./home-loading-state";
+import { NoResultsState } from "./no-results-state";
 import { toast } from "sonner";
 
 export default function CompanyHomePageContent() {
@@ -21,6 +22,7 @@ export default function CompanyHomePageContent() {
     openDialog,
     closeDialog,
     isDialogOpen,
+    setSearchQuery,
   } = useCompanyUI();
 
   const { companies, setCompanies, isLoading } = useCompaniesStorage();
@@ -116,6 +118,11 @@ export default function CompanyHomePageContent() {
         <HomeLoadingState viewMode={viewMode} />
       ) : companies.length === 0 ? (
         <EmptyState onAdd={handleOpenDialog} />
+      ) : filteredAndSortedCompanies.length === 0 ? (
+        <NoResultsState
+          searchQuery={searchQuery}
+          onClearSearch={() => setSearchQuery("")}
+        />
       ) : (
         <>
           <CompanyStats companies={companies} />{" "}

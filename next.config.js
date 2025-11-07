@@ -10,7 +10,21 @@ const config = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: '**', // This allows images from any hostname
+        hostname: 'api.elbstream.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '*.elbstream.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
+        pathname: '**',
+      },
+      {
+        protocol: 'http',
+        hostname: '**',
+        pathname: '**',
       },
     ],
     dangerouslyAllowSVG: true,

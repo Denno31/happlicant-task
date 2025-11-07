@@ -10,6 +10,7 @@ type CompanyUIContextType = {
   onSearchChange: (query: string) => void;
   onSortChange: (sort: string) => void;
   searchQuery: string;
+  setSearchQuery: (query: string) => void;
   sortBy: string;
   openDialog: () => void;
   closeDialog: () => void;
@@ -57,6 +58,7 @@ function CompanyUIProviderContent({
         onSearchChange,
         onSortChange,
         searchQuery,
+        setSearchQuery,
         sortBy,
         openDialog,
         closeDialog,
