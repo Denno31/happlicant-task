@@ -47,11 +47,11 @@ export function filteredCompanies(companies:Company[],searchQuery:string):Compan
         const industry =
           typeof company.industry === "string"
             ? company.industry.toLowerCase()
-            : company.industry?.primary.toLowerCase() || "";
+            : company.industry?.primary.toLowerCase() ?? "";
         const location =
           typeof company.location === "string"
             ? company.location.toLowerCase()
-            : `${company.location?.city || ""} ${company.location?.country || ""}`.toLowerCase();
+            : `${company.location?.city ?? ""} ${company.location?.country ?? ""}`.toLowerCase();
 
         return (
           name.includes(query) ||
@@ -72,13 +72,13 @@ export function sortedCompanies(companies:Company[],sortBy:string){
         case "name-desc":
           return b.name.localeCompare(a.name);
         case "employees-asc":
-          return (a.employee_count || 0) - (b.employee_count || 0);
+          return (a.employee_count ?? 0) - (b.employee_count ?? 0);
         case "employees-desc":
-          return (b.employee_count || 0) - (a.employee_count || 0);
+          return (b.employee_count ?? 0) - (a.employee_count ?? 0);
         case "founded-asc":
-          return (a.founded || 9999) - (b.founded || 9999);
+          return (a.founded ?? 9999) - (b.founded ?? 9999);
         case "founded-desc":
-          return (b.founded || 0) - (a.founded || 0);
+          return (b.founded ?? 0) - (a.founded ?? 0);
         default:
           return 0;
       }

@@ -28,7 +28,7 @@ interface CompanyDetailsPageProps {
   }>;
 }
 
-export default function companyDetailsPage({
+export default function CompanyDetailsPage({
   params,
 }: CompanyDetailsPageProps) {
   const router = useRouter();

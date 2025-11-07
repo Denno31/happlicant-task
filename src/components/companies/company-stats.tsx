@@ -23,7 +23,7 @@ function getColorClasses(color: string) {
 export default function CompanyStats({ companies }: CompanyStatsProps) {
   const totalCompanies = companies.length;
   const totalEmployees = companies.reduce(
-    (acc, company) => acc + (company?.employee_count || 0),
+    (acc, company) => acc + (company?.employee_count ?? 0),
     0,
   );
   const uniqueIndustries = new Set(companies.map((company) => company.industry))

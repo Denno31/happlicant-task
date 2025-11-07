@@ -12,7 +12,7 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
       <div className="min-h-screen bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[...Array(4)].map((_, i) => (
+            {Array.from({ length: 4 }).map((_, i) => (
               <Card key={i} className="border-gray-200 py-0">
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between">
@@ -27,7 +27,7 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
             ))}
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {[...Array(6)].map((_, i) => (
+            {Array.from({ length: 6 }).map((_, i) => (
               <Card key={i} className="animate-pulse border-gray-200 py-0">
                 <CardContent className="p-6">
                   <div className="mb-4 flex items-center gap-3">
@@ -58,7 +58,7 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {[...Array(4)].map((_, i) => (
+          {Array.from({ length: 4 }).map((_, i) => (
             <Card key={i} className="border-gray-200 py-0">
               <CardContent className="p-5">
                 <div className="flex items-center justify-between">
@@ -76,7 +76,7 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
           <table className="w-full">
             <thead className="border-b border-gray-200 bg-gray-50">
               <tr>
-                {[...Array(6)].map((_, i) => (
+                {Array.from({ length: 6 }).map((_, i) => (
                   <th key={i} className="px-6 py-3 text-left">
                     <div className="h-4 w-20 animate-pulse rounded bg-gray-200" />
                   </th>
@@ -84,7 +84,7 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200">
-              {[...Array(5)].map((_, i) => (
+              {Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i} className="animate-pulse">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">

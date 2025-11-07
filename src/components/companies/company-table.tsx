@@ -2,6 +2,7 @@
 
 import { type Company } from "@/types/company";
 import Link from "next/link";
+import Image from "next/image";
 import { formatLocation } from "@/lib/company-helpers";
 
 import {
@@ -57,9 +58,11 @@ export default function CompanyTable({
               <TableCell className="px-6 py-4">
                 <div className="flex items-center gap-3">
                   {company.logo_url ? (
-                    <img
+                    <Image
                       src={company.logo_url}
                       alt={company.name}
+                      width={40}
+                      height={40}
                       className="h-10 w-10 rounded-lg border border-gray-200 object-contain p-1.5"
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
