@@ -6,25 +6,26 @@ interface LoadingStateProps {
   viewMode: "grid" | "table";
 }
 
-export function LoadingState({ viewMode }: LoadingStateProps) {
+export function HomeLoadingState({ viewMode }: LoadingStateProps) {
   if (viewMode === "grid") {
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          {/* Header Skeleton */}
-          {/* summary cards instead here */}
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
-              <div className="mt-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
-            </div>
-            <div className="flex gap-2">
-              <div className="h-10 w-24 animate-pulse rounded-lg bg-gray-200" />
-              <div className="h-10 w-36 animate-pulse rounded-lg bg-gray-200" />
-            </div>
+          <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[...Array(4)].map((_, i) => (
+              <Card key={i} className="border-gray-200 py-0">
+                <CardContent className="p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1">
+                      <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
+                      <div className="mt-2 h-8 w-16 animate-pulse rounded bg-gray-200" />
+                    </div>
+                    <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200" />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-
-          {/* Grid Skeleton */}
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {[...Array(6)].map((_, i) => (
               <Card key={i} className="animate-pulse border-gray-200 py-0">
@@ -56,15 +57,20 @@ export function LoadingState({ viewMode }: LoadingStateProps) {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center justify-between">
-          <div>
-            <div className="h-8 w-48 animate-pulse rounded bg-gray-200" />
-            <div className="mt-2 h-4 w-32 animate-pulse rounded bg-gray-200" />
-          </div>
-          <div className="flex gap-2">
-            <div className="h-10 w-24 animate-pulse rounded-lg bg-gray-200" />
-            <div className="h-10 w-36 animate-pulse rounded-lg bg-gray-200" />
-          </div>
+        <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[...Array(4)].map((_, i) => (
+            <Card key={i} className="border-gray-200 py-0">
+              <CardContent className="p-5">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
+                    <div className="mt-2 h-8 w-16 animate-pulse rounded bg-gray-200" />
+                  </div>
+                  <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200" />
+                </div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
         <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
           <table className="w-full">

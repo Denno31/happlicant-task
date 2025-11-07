@@ -10,7 +10,7 @@ import CompanyTable from "@/components/companies/company-table";
 import CompanyDialogForm from "@/components/companies/company-dialog-form";
 import { CompanyDialogDelete } from "@/components/companies/company-dialog-delete";
 import { useRouter, useSearchParams } from "next/navigation";
-import { LoadingState } from "@/components/companies/loading-state";
+import { HomeLoadingState } from "@/components/companies/home-loading-state";
 import { MainLayout } from "@/components/layout/MainLayout";
 
 export default function HomePage() {
@@ -158,7 +158,7 @@ export default function HomePage() {
       sortBy={sortBy}
     >
       {isLoading ? (
-        <LoadingState viewMode={viewMode} />
+        <HomeLoadingState viewMode={viewMode} />
       ) : companies.length === 0 ? (
         <EmptyState onAdd={() => {}} />
       ) : (
