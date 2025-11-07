@@ -94,7 +94,7 @@ export default function CompanyCard({
             </div>
           )}
 
-        {(company.location || company.employee_count || company.founded) && (
+        {(company.location ?? company.employee_count ?? company.founded) && (
           <div className="space-y-2.5 border-t border-gray-100 pt-3">
             {company.location && (
               <div className="flex items-center gap-2.5">

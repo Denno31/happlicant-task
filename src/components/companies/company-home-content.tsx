@@ -15,12 +15,10 @@ import { HomeLoadingState } from "./home-loading-state";
 export default function CompanyHomePageContent() {
   const {
     viewMode,
-    onViewChange,
     searchQuery,
     sortBy,
     openDialog,
     closeDialog,
-    onSearchChange,
     isDialogOpen,
   } = useCompanyUI();
 
@@ -67,10 +65,6 @@ export default function CompanyHomePageContent() {
   const handleOpenEdit = (company: Company) => {
     setEditingCompany(company);
     openDialog();
-  };
-
-  const handleSearchChange = (query: string) => {
-    onSearchChange(query);
   };
 
   useEffect(() => {

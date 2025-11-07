@@ -21,8 +21,8 @@ export default function NotFound() {
                   Page Not Found
                 </h2>
                 <p className="mx-auto max-w-md text-sm text-gray-600">
-                  Sorry, we couldn't find the page you're looking for. It might
-                  have been moved or doesn't exist.
+                  Sorry, we couldn&apos;t find the page you&apos;re looking for. It might
+                  have been moved or doesn&apos;t exist.
                 </p>
               </div>
               <div className="flex flex-col gap-3 pt-4 sm:flex-row sm:justify-center">

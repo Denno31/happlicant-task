@@ -25,7 +25,7 @@ export const CompanyUIProvider = ({
 }) => {
   const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
-  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") || "");
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [sortBy, setSortBy] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 

@@ -40,7 +40,7 @@ export default function CompanyDetailsPage({
   useEffect(() => {
     const storedCompanies = localStorage.getItem("companies");
     if (storedCompanies) {
-      const companies: Company[] = JSON.parse(storedCompanies);
+      const companies = JSON.parse(storedCompanies) as Company[];
       const foundCompany = companies.find((c) => c.id === id);
       setCompany(foundCompany || null);
     }
@@ -67,7 +67,7 @@ export default function CompanyDetailsPage({
                   Company not found
                 </p>
                 <p className="mt-1 text-sm text-gray-500">
-                  The company you're looking for doesn't exist.
+                  The company you&apos;re looking for doesn&apos;t exist.
                 </p>
               </CardContent>
             </Card>
@@ -89,7 +89,7 @@ export default function CompanyDetailsPage({
                 Company not found
               </p>
               <p className="mt-1 text-sm text-gray-500">
-                The company you're looking for doesn't exist.
+                The company you&apos;re looking for doesn&apos;t exist.
               </p>
             </CardContent>
           </Card>
