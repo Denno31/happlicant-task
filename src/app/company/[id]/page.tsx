@@ -1,6 +1,7 @@
 "use client";
 import { MainLayout } from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
@@ -135,9 +136,11 @@ export default function CompanyDetailsPage({
             <div className="flex flex-col gap-6 md:flex-row md:items-start">
               <div className="flex-shrink-0">
                 {company.logo_url ? (
-                  <img
+                  <Image
                     src={company.logo_url}
                     alt={company.name}
+                    width={96}
+                    height={96}
                     className="h-24 w-24 rounded-lg border border-gray-200 object-contain p-3"
                     onError={(e) => {
                       e.currentTarget.style.display = "none";

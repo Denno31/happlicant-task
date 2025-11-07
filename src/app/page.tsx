@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { useEffect } from "react";
 import CompanyStats from "@/components/companies/company-stats";
 import type { Company } from "@/types/company";

@@ -5,6 +5,7 @@ import IndustryTag from "./industry-tag";
 import { useState } from "react";
 import CompanyCardActionMenu from "./companies-card-action-menu";
 import Link from "next/link";
+import Image from "next/image";
 import { formatLocation } from "@/lib/company-helpers";
 
 interface CompanyCardProps {
@@ -29,9 +30,11 @@ export default function CompanyCard({
           <div className="flex min-w-0 flex-1 items-start gap-3">
             {company.logo_url ? (
               <div className="flex-shrink-0">
-                <img
+                <Image
                   src={company.logo_url}
                   alt={company.name}
+                  width={48}
+                  height={48}
                   className="h-12 w-12 rounded-lg border border-gray-200 object-contain p-2"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
