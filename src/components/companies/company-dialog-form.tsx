@@ -180,18 +180,22 @@ export default function CompanyDialogForm({
             onSubmit={form.handleSubmit(handleFormSubmit)}
             className="space-y-6"
           >
-            <div className="space-y-4">
-              <h3 className="border-b border-gray-200 pb-2 text-xs font-semibold tracking-wide text-gray-700 uppercase">
-                Basic Information
-              </h3>
+            <div className="space-y-4 rounded-lg bg-gradient-to-r from-pink-50/50 to-purple-50/50 p-4">
+              <div className="flex items-center gap-2 pb-2 border-b-2 border-pink-200">
+                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-pink-600">
+                  <Sparkles className="h-3.5 w-3.5 text-white" />
+                </div>
+                <h3 className="text-sm font-bold text-gray-800">
+                  Basic Information
+                </h3>
+              </div>
 
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-pink-600" />
+                    <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
                       Company Name <span className="text-red-500">*</span>
                     </FormLabel>
                     <FormControl>
@@ -209,8 +213,8 @@ export default function CompanyDialogForm({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-blue-600" />
+                    <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                      <FileText className="h-3.5 w-3.5 text-gray-500" />
                       Description
                     </FormLabel>
                     <FormControl>
@@ -231,8 +235,8 @@ export default function CompanyDialogForm({
                   name="industry"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <TrendingUp className="h-4 w-4 text-purple-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <TrendingUp className="h-3.5 w-3.5 text-gray-500" />
                         Industry
                       </FormLabel>
                       <FormControl>
@@ -247,8 +251,8 @@ export default function CompanyDialogForm({
                   name="website"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <Globe className="h-4 w-4 text-green-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                        <Globe className="h-3.5 w-3.5 text-gray-500" />
                         Website
                       </FormLabel>
                       <FormControl>
@@ -265,8 +269,8 @@ export default function CompanyDialogForm({
               </div>
 
               <div className="space-y-2">
-                <FormLabel className="flex items-center gap-2">
-                  <TrendingUp className="h-4 w-4 text-purple-600" />
+                <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
+                  <TrendingUp className="h-3.5 w-3.5 text-gray-500" />
                   Industry Sectors
                 </FormLabel>
                 <div className="space-y-2">
@@ -335,18 +339,22 @@ export default function CompanyDialogForm({
                 </div>
               </div>
             </div>
-            <div className="space-y-4">
-              <h3 className="border-b border-gray-200 pb-2 text-xs font-semibold tracking-wide text-gray-700 uppercase">
-                Location
-              </h3>
+            <div className="space-y-4 rounded-lg bg-gradient-to-r from-blue-50/50 to-cyan-50/50 p-4">
+              <div className="flex items-center gap-2 pb-2 border-b-2 border-blue-200">
+                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-blue-500 to-blue-600">
+                  <MapPin className="h-3.5 w-3.5 text-white" />
+                </div>
+                <h3 className="text-sm font-bold text-gray-800">
+                  Location
+                </h3>
+              </div>
               <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
                   control={form.control}
                   name="city"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-red-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
                         City
                       </FormLabel>
                       <FormControl>
@@ -361,8 +369,7 @@ export default function CompanyDialogForm({
                   name="country"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-red-600" />
+                      <FormLabel className="flex items-center gap-2 text-sm font-semibold text-gray-700">
                         Country
                       </FormLabel>
                       <FormControl>
@@ -374,10 +381,15 @@ export default function CompanyDialogForm({
                 />
               </div>
             </div>
-            <div className="space-y-4">
-              <h3 className="border-b border-gray-200 pb-2 text-xs font-semibold tracking-wide text-gray-700 uppercase">
-                Additional Details
-              </h3>
+            <div className="space-y-4 rounded-lg bg-gradient-to-r from-purple-50/50 to-pink-50/50 p-4">
+              <div className="flex items-center gap-2 pb-2 border-b-2 border-purple-200">
+                <div className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-purple-500 to-purple-600">
+                  <Users className="h-3.5 w-3.5 text-white" />
+                </div>
+                <h3 className="text-sm font-bold text-gray-800">
+                  Additional Details
+                </h3>
+              </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 <FormField
@@ -474,7 +486,7 @@ export default function CompanyDialogForm({
               </Button>
               <Button
                 type="submit"
-                className="h-9 gap-2 bg-pink-600 font-medium text-white hover:bg-pink-700"
+                className="group h-9 gap-2 rounded-lg bg-gradient-to-r from-pink-600 to-pink-500 font-semibold text-white shadow-md shadow-pink-500/20 transition-all hover:shadow-lg hover:shadow-pink-500/30 hover:scale-105"
               >
                 {editingCompany ? (
                   <>
