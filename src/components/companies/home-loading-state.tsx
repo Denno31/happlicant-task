@@ -1,6 +1,15 @@
 "use client";
 
 import { Card, CardContent } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 interface LoadingStateProps {
   viewMode: "grid" | "table";
@@ -17,10 +26,10 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
                 <CardContent className="p-5">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
-                      <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
-                      <div className="mt-2 h-8 w-16 animate-pulse rounded bg-gray-200" />
+                      <Skeleton className="h-4 w-24" />
+                      <Skeleton className="mt-2 h-8 w-16" />
                     </div>
-                    <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200" />
+                    <Skeleton className="h-12 w-12 rounded-lg" />
                   </div>
                 </CardContent>
               </Card>
@@ -28,22 +37,22 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
           </div>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
-              <Card key={i} className="animate-pulse border-gray-200 py-0">
+              <Card key={i} className="border-gray-200 py-0">
                 <CardContent className="p-6">
                   <div className="mb-4 flex items-center gap-3">
-                    <div className="h-12 w-12 rounded-lg bg-gray-200" />
+                    <Skeleton className="h-12 w-12 rounded-lg" />
                     <div className="flex-1 space-y-2">
-                      <div className="h-5 w-3/4 rounded bg-gray-200" />
-                      <div className="h-4 w-1/2 rounded bg-gray-200" />
+                      <Skeleton className="h-5 w-3/4" />
+                      <Skeleton className="h-4 w-1/2" />
                     </div>
                   </div>
                   <div className="mb-4 space-y-2">
-                    <div className="h-4 w-full rounded bg-gray-200" />
-                    <div className="h-4 w-5/6 rounded bg-gray-200" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-5/6" />
                   </div>
                   <div className="space-y-2">
-                    <div className="h-4 w-2/3 rounded bg-gray-200" />
-                    <div className="h-4 w-1/2 rounded bg-gray-200" />
+                    <Skeleton className="h-4 w-2/3" />
+                    <Skeleton className="h-4 w-1/2" />
                   </div>
                 </CardContent>
               </Card>
@@ -63,57 +72,57 @@ export function HomeLoadingState({ viewMode }: LoadingStateProps) {
               <CardContent className="p-5">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <div className="h-4 w-24 animate-pulse rounded bg-gray-200" />
-                    <div className="mt-2 h-8 w-16 animate-pulse rounded bg-gray-200" />
+                    <Skeleton className="h-4 w-24" />
+                    <Skeleton className="mt-2 h-8 w-16" />
                   </div>
-                  <div className="h-12 w-12 animate-pulse rounded-lg bg-gray-200" />
+                  <Skeleton className="h-12 w-12 rounded-lg" />
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
-        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white">
-          <table className="w-full">
-            <thead className="border-b border-gray-200 bg-gray-50">
-              <tr>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          <Table>
+            <TableHeader className="bg-gray-50">
+              <TableRow className="hover:bg-gray-50">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <th key={i} className="px-6 py-3 text-left">
-                    <div className="h-4 w-20 animate-pulse rounded bg-gray-200" />
-                  </th>
+                  <TableHead key={i} className="px-6 py-3">
+                    <Skeleton className="h-4 w-20" />
+                  </TableHead>
                 ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
+              </TableRow>
+            </TableHeader>
+            <TableBody>
               {Array.from({ length: 5 }).map((_, i) => (
-                <tr key={i} className="animate-pulse">
-                  <td className="px-6 py-4">
+                <TableRow key={i}>
+                  <TableCell className="px-6 py-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-gray-200" />
+                      <Skeleton className="h-10 w-10 rounded-lg" />
                       <div className="space-y-2">
-                        <div className="h-4 w-32 rounded bg-gray-200" />
-                        <div className="h-3 w-20 rounded bg-gray-200" />
+                        <Skeleton className="h-4 w-32" />
+                        <Skeleton className="h-3 w-20" />
                       </div>
                     </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-24 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-28 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-16 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="h-4 w-12 rounded bg-gray-200" />
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="ml-auto h-8 w-8 rounded bg-gray-200" />
-                  </td>
-                </tr>
+                  </TableCell>
+                  <TableCell className="px-6 py-4">
+                    <Skeleton className="h-4 w-24" />
+                  </TableCell>
+                  <TableCell className="px-6 py-4">
+                    <Skeleton className="h-4 w-28" />
+                  </TableCell>
+                  <TableCell className="px-6 py-4">
+                    <Skeleton className="h-4 w-16" />
+                  </TableCell>
+                  <TableCell className="px-6 py-4">
+                    <Skeleton className="h-4 w-12" />
+                  </TableCell>
+                  <TableCell className="px-6 py-4 text-right">
+                    <Skeleton className="ml-auto h-8 w-8" />
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          </table>
+            </TableBody>
+          </Table>
         </div>
       </div>
     </div>
