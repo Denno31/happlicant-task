@@ -7,6 +7,7 @@ import {
   useContext,
   useCallback,
   Suspense,
+  useEffect,
 } from "react";
 
 type CompanyUIContextType = {
@@ -26,13 +27,18 @@ type CompanyUIContextType = {
 const CompanyUIContext = createContext<CompanyUIContextType | null>(null);
 
 function CompanyUIProviderContent({ children }: { children: React.ReactNode }) {
-  const defaultViewMode =
-    (localStorage.getItem("viewMode") as "grid" | "table") || "grid";
   const searchParams = useSearchParams();
-  const [viewMode, setViewMode] = useState<"grid" | "table">(defaultViewMode);
+  const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [sortBy, setSortBy] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("viewMode") as "grid" | "table" | null;
+    if (saved) setViewMode(saved);
+    setIsMounted(true);
+  }, []);
 
   const openDialog = useCallback(() => setIsDialogOpen(true), []);
   const closeDialog = useCallback(() => setIsDialogOpen(false), []);
@@ -54,6 +60,7 @@ function CompanyUIProviderContent({ children }: { children: React.ReactNode }) {
     setSortBy(sort);
   };
 
+  if (!isMounted) return null;
   return (
     <CompanyUIContext.Provider
       value={{
