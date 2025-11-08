@@ -1,5 +1,5 @@
 import { CompanyUIProvider } from "@/context/CompanyUIContext";
-import Header from "./Header";
+import Header from "./page-header";
 
 interface MainLayoutProps {
   children: React.ReactNode;

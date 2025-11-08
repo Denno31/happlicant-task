@@ -1,6 +1,6 @@
 "use client";
 
-import { MainLayout } from "@/components/main-layout/MainLayout";
+import { MainLayout } from "@/components/main-layout/main-layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Home, Search, AlertCircle } from "lucide-react";

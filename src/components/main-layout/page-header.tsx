@@ -18,7 +18,7 @@ const sortOptions = [
   { value: "founded-asc", label: "Oldest" },
 ];
 
-export default function Header({ isHomePage }: HeaderProps) {
+export default function PageHeader({ isHomePage }: HeaderProps) {
   const {
     viewMode,
     onViewChange,
