@@ -1,7 +1,14 @@
 "use client";
 
 import { useSearchParams } from "next/navigation";
-import { createContext, useState, useContext, useCallback, Suspense } from "react";
+import {
+  createContext,
+  useState,
+  useContext,
+  useCallback,
+  Suspense,
+  useEffect,
+} from "react";
 
 type CompanyUIContextType = {
   viewMode: "grid" | "table";
@@ -19,22 +26,26 @@ type CompanyUIContextType = {
 
 const CompanyUIContext = createContext<CompanyUIContextType | null>(null);
 
-function CompanyUIProviderContent({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function CompanyUIProviderContent({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const [viewMode, setViewMode] = useState<"grid" | "table">("grid");
   const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
   const [sortBy, setSortBy] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("viewMode") as "grid" | "table" | null;
+    if (saved) setViewMode(saved);
+    setIsMounted(true);
+  }, []);
 
   const openDialog = useCallback(() => setIsDialogOpen(true), []);
   const closeDialog = useCallback(() => setIsDialogOpen(false), []);
 
   const onViewChange = (mode: "grid" | "table") => {
     setViewMode(mode);
+    localStorage.setItem("viewMode", mode);
   };
 
   const onAdd = () => {
@@ -49,6 +60,7 @@ function CompanyUIProviderContent({
     setSortBy(sort);
   };
 
+  if (!isMounted) return null;
   return (
     <CompanyUIContext.Provider
       value={{
