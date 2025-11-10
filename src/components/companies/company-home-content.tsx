@@ -31,7 +31,13 @@ export default function CompanyHomePageContent() {
   const router = useRouter();
 
   const handleOpenDialog = () => {
+    setEditingCompany(null); // Clear any existing editing state
     openDialog();
+  };
+
+  const handleCloseDialog = () => {
+    setEditingCompany(null); // Reset editing state when dialog closes
+    closeDialog();
   };
 
   const handleSubmit = (newCompany: Omit<Company, "id">) => {
@@ -144,7 +150,7 @@ export default function CompanyHomePageContent() {
 
       <CompanyDialogForm
         open={isDialogOpen}
-        onOpenChange={closeDialog}
+        onOpenChange={handleCloseDialog}
         onSubmit={editingCompany ? handleEditCompany : handleSubmit}
         editingCompany={editingCompany}
       />
